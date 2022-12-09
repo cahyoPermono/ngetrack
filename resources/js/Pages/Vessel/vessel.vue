@@ -158,7 +158,7 @@
                           v-model="form.name"
                         />
                         <div v-if="errors.name" class="text-red-500">
-                            {{ errors.name }}
+                          {{ errors.name }}
                         </div>
                       </div>
                       <div class="mb-4">
@@ -372,8 +372,80 @@
     </div>
   </app-layout>
 </template>
-<script>
+<script setup>
+import { ref } from "vue";
 import AppLayout from "../../Layouts/AppLayout.vue";
+import { Inertia } from '@inertiajs/inertia'
+
+defineProps({
+  data: Array,
+  errors: Object,
+});
+
+let editMode = ref(false);
+let isOpen = ref(false);
+let form = ref({
+  name: null,
+  type: null,
+  plate: null,
+  driver: null,
+  status: null,
+  speed: null,
+  fuel_level: null,
+  mileage: null,
+});
+
+function openModal() {
+  isOpen.value = true;
+}
+function closeModal() {
+  isOpen.value = false;
+  reset();
+  editMode.value = false;
+}
+function reset() {
+  form.value = {
+    name: null,
+    type: null,
+    plate: null,
+    driver: null,
+    status: null,
+    speed: null,
+    fuel_level: null,
+    mileage: null,
+  };
+}
+function save(data) {
+  data.status = "Vehicle Off";
+  data.speed = "0";
+  data.fuel_level = "0";
+  data.mileage = "0";
+
+  Inertia.post("/vessels", data);
+  reset();
+  closeModal();
+  editMode.value = false;
+}
+function edit(data) {
+  form.value = Object.assign({}, data);
+  editMode.value = true;
+  openModal();
+}
+function update(data) {
+  data._method = "PUT";
+  Inertia.post("/vessels/" + data.id, data);
+  reset();
+  closeModal();
+}
+function deleteRow(data) {
+  if (!confirm("Are you sure want to remove?")) return;
+  data._method = "DELETE";
+  Inertia.post("/vessels/" + data.id, data);
+  reset();
+  closeModal();
+}
+</script>
+<!-- <script>
 export default {
   components: {
     AppLayout,
@@ -417,10 +489,10 @@ export default {
       };
     },
     save: function (data) {
-      data.status = 'Vehicle Off'
-      data.speed = '0'
-      data.fuel_level = '0'
-      data.mileage = '0'
+      data.status = "Vehicle Off";
+      data.speed = "0";
+      data.fuel_level = "0";
+      data.mileage = "0";
 
       this.$inertia.post("/vessels", data);
       this.reset();
@@ -447,4 +519,4 @@ export default {
     },
   },
 };
-</script>
+</script> -->
