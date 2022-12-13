@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\VesselController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -39,5 +41,17 @@ Route::middleware([
     Route::post('vessels', [VesselController::class, 'store'])->name('vessels.create');
     Route::put('vessels/{vessel}', [VesselController::class, 'update'])->name('vessels.update');
     Route::delete('vessels/{vessel}', [VesselController::class, 'destroy'])->name('vessels.destroy');
+
+    //Routing product
+    Route::get('products', [ProductController::class, 'index'])->name('products');
+    Route::post('products', [ProductController::class, 'store'])->name('products.create');
+    Route::put('products/{product}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+     //Routing customer
+     Route::get('customers', [CustomerController::class, 'index'])->name('customers');
+     Route::post('customers', [CustomerController::class, 'store'])->name('customers.create');
+     Route::put('customers/{customers}', [CustomerController::class, 'update'])->name('customers.update');
+     Route::delete('customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
     // Route::resource('vessels', VesselController::class);
 });
