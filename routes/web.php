@@ -3,6 +3,7 @@
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\VesselController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TransmitterController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -53,5 +54,11 @@ Route::middleware([
      Route::post('customers', [CustomerController::class, 'store'])->name('customers.create');
      Route::put('customers/{customers}', [CustomerController::class, 'update'])->name('customers.update');
      Route::delete('customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+
+    //Routing Transmitter
+     Route::get('transmitters', [TransmitterController::class, 'index'])->name('transmitters');
+     Route::post('transmitters', [TransmitterController::class, 'store'])->name('transmitters.create');
+     Route::put('transmitters/{transmitters}', [TransmitterController::class, 'update'])->name('transmitters.update');
+     Route::delete('transmitters/{transmitters}', [TransmitterController::class, 'destroy'])->name('transmitters.destroy');
     // Route::resource('vessels', VesselController::class);
 });
