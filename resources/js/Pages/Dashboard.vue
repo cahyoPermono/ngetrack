@@ -13,8 +13,9 @@ onMounted(() => {
 
   //add tile layer
   leaflet
-    .tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
+    .tileLayer(`https://api.mapbox.com/styles/v1/cahyopermono/clbiqwbm4000b14nytxkvrv3j/tiles/256/{z}/{x}/{y}@2x?access_token=${usePage().props.value.maptoken}`, {
+    // .tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 10,
       attribution:
         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     })
