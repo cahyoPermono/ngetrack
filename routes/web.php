@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\VesselController;
 use App\Http\Controllers\ProductController;
@@ -37,11 +38,11 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    
-    Route::get('vessels', [VesselController::class, 'index'])->name('vessels');
-    Route::post('vessels', [VesselController::class, 'store'])->name('vessels.create');
-    Route::put('vessels/{vessel}', [VesselController::class, 'update'])->name('vessels.update');
-    Route::delete('vessels/{vessel}', [VesselController::class, 'destroy'])->name('vessels.destroy');
+    // Routing Vehicles
+    Route::get('vehicles', [VehicleController::class, 'index'])->name('vehicles');
+    Route::post('vehicles', [VehicleController::class, 'store'])->name('vehicles.create');
+    Route::put('vehicles/{vehicle}', [VehicleController::class, 'update'])->name('vehicles.update');
+    Route::delete('vehicles/{vehicle}', [VehicleController::class, 'destroy'])->name('vehicles.destroy');
 
     //Routing product
     Route::get('products', [ProductController::class, 'index'])->name('products');
