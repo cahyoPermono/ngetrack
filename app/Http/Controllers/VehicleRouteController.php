@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Vehicle;
 use App\Models\VehicleRoute;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Inertia\Inertia;
+
+use Illuminate\Support\Str;
 
 class VehicleRouteController extends Controller
 {
@@ -14,7 +19,9 @@ class VehicleRouteController extends Controller
      */
     public function index()
     {
-        //
+        $data = VehicleRoute::with('vehicle')->get();
+        $vehicles = Vehicle::all();
+        return Inertia::render('Vehicle/VehicleRoute', ['data' => $data, 'vehicles' => $vehicles]);
     }
 
     /**
@@ -35,7 +42,38 @@ class VehicleRouteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Validator::make($request->all(), [
+            'vehicle_id' => ['required'],
+            'from' => ['required'],
+            'from_long' => ['required'],
+            'from_lat' => ['required'],
+            'to' => ['required'],
+            'to_long' => ['required'],
+            'to_lat' => ['required'],
+            'driver' => ['required'],
+        ])->validate();
+
+        $requestData = $request->all();
+
+        // check vehicle avaibility for new route
+        $activeVehicle = VehicleRoute::where('vehicle_id', $request->vehicle_id)->where('status', 'on')->get();
+
+        if(count($activeVehicle) > 0){
+            return redirect()->back()->withErrors([
+                'message' => 'Cannot create a new route because there is still an active route on the vehicle'
+            ]);
+        }
+
+        // add noreg from uuid
+        $requestData['reg_no'] = (string) Str::ulid();
+        $requestData['status'] = 'on';
+
+        error_log($request);
+
+        VehicleRoute::create($requestData);
+
+        return redirect()->back()
+            ->with('message', 'Routes Created Successfully.');
     }
 
     /**
@@ -69,7 +107,21 @@ class VehicleRouteController extends Controller
      */
     public function update(Request $request, VehicleRoute $vehicleRoute)
     {
-        //
+        Validator::make($request->all(), [
+            'from' => ['required'],
+            'from_long' => ['required'],
+            'from_lat' => ['required'],
+            'to' => ['required'],
+            'to_long' => ['required'],
+            'to_lat' => ['required'],
+            'driver' => ['required'],
+        ])->validate();
+  
+        if ($request->has('id')) {
+            VehicleRoute::find($request->input('id'))->update($request->all());
+            return redirect()->back()
+                    ->with('message', 'Route Updated Successfully.');
+        }
     }
 
     /**
@@ -78,8 +130,11 @@ class VehicleRouteController extends Controller
      * @param  \App\Models\VehicleRoute  $vehicleRoute
      * @return \Illuminate\Http\Response
      */
-    public function destroy(VehicleRoute $vehicleRoute)
+    public function destroy(VehicleRoute $vehicleRoute, Request $request)
     {
-        //
+        if ($request->has('id')) {
+            VehicleRoute::find($request->input('id'))->delete();
+            return redirect()->back();
+        }
     }
 }

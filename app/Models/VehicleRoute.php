@@ -11,7 +11,13 @@ class VehicleRoute extends Model
 
     protected $guarded = [];
 
-    public function vehicleTracking(){
+    public function vehicleTracking()
+    {
         return $this->hasMany(VehicleTracking::class);
+    }
+
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class);
     }
 }

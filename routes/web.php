@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\VesselController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransmitterController;
+use App\Http\Controllers\VehicleRouteController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -50,16 +51,21 @@ Route::middleware([
     Route::put('products/{product}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
-     //Routing customer
-     Route::get('customers', [CustomerController::class, 'index'])->name('customers');
-     Route::post('customers', [CustomerController::class, 'store'])->name('customers.create');
-     Route::put('customers/{customers}', [CustomerController::class, 'update'])->name('customers.update');
-     Route::delete('customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+    //Routing customer
+    Route::get('customers', [CustomerController::class, 'index'])->name('customers');
+    Route::post('customers', [CustomerController::class, 'store'])->name('customers.create');
+    Route::put('customers/{customers}', [CustomerController::class, 'update'])->name('customers.update');
+    Route::delete('customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
 
     //Routing Transmitter
-     Route::get('transmitters', [TransmitterController::class, 'index'])->name('transmitters');
-     Route::post('transmitters', [TransmitterController::class, 'store'])->name('transmitters.create');
-     Route::put('transmitters/{transmitters}', [TransmitterController::class, 'update'])->name('transmitters.update');
-     Route::delete('transmitters/{transmitters}', [TransmitterController::class, 'destroy'])->name('transmitters.destroy');
-    // Route::resource('vessels', VesselController::class);
+    Route::get('transmitters', [TransmitterController::class, 'index'])->name('transmitters');
+    Route::post('transmitters', [TransmitterController::class, 'store'])->name('transmitters.create');
+    Route::put('transmitters/{transmitters}', [TransmitterController::class, 'update'])->name('transmitters.update');
+    Route::delete('transmitters/{transmitters}', [TransmitterController::class, 'destroy'])->name('transmitters.destroy');
+
+    //Routing Vehicle Routes
+    Route::get('routes', [VehicleRouteController::class, 'index'])->name('routes');
+    Route::post('routes', [VehicleRouteController::class, 'store'])->name('routes.create');
+    Route::put('routes/{route}', [VehicleRouteController::class, 'update'])->name('routes.update');
+    Route::delete('routes/{route}', [VehicleRouteController::class, 'destroy'])->name('routes.destroy');
 });

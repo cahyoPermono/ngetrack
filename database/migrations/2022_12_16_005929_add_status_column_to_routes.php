@@ -13,16 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vehicles', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('type');
-            $table->string('plate');
+        Schema::table('vehicle_routes', function (Blueprint $table) {
             $table->string('status');
-            $table->string('speed')->nullable();
-            $table->string('fuel_level')->nullable();
-            $table->string('mileage')->nullable();
-            $table->timestamps();
         });
     }
 
@@ -33,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vehicles');
+        Schema::table('vehicle_routes', function (Blueprint $table) {
+            $table->dropColumn('status')->default('on');
+        });
     }
 };

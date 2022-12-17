@@ -10,4 +10,9 @@ class VehicleTracking extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function vehicleRoute()
+    {
+        return $this->belongsTo(VehicleRoute::class);
+    }
 }
