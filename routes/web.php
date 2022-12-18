@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\VesselController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransmitterController;
@@ -35,9 +36,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Routing Vehicles
     Route::get('vehicles', [VehicleController::class, 'index'])->name('vehicles');

@@ -15,6 +15,10 @@ class VehicleRoute extends Model
     {
         return $this->hasMany(VehicleTracking::class);
     }
+    public function lastTracking()
+    {
+        return $this->hasOne(VehicleTracking::class)->latest();
+    }
 
     public function vehicle()
     {

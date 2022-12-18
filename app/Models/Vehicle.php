@@ -14,4 +14,8 @@ class Vehicle extends Model
     public function vehicleRoutes(){
         return $this->hasMany(VehicleRoute::class);
     }
+
+    public function activeRoutes(){
+        return $this->hasOne(VehicleRoute::class)->latest();
+    }
 }
