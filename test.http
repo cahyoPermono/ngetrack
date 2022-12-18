@@ -1,0 +1,8 @@
+POST http://localhost:8000/api/trackings HTTP/1.1
+content-type: application/json
+
+{
+    "long": "109.247833",
+    "lat": "-7.431391",
+    "reg_no": "01GMCT8719Q7KNDJCGJ86EZH1Y"
+}

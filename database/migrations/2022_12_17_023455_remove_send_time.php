@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('vehicle_routes', function (Blueprint $table) {
-            $table->string('status');
+        Schema::table('vehicle_trackings', function (Blueprint $table) {
+            $table->dropColumn('send_time');
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('vehicle_routes', function (Blueprint $table) {
-            $table->dropColumn('status');
+        Schema::table('vehicle_trackings', function (Blueprint $table) {
+            $table->string('send_time');
         });
     }
 };
