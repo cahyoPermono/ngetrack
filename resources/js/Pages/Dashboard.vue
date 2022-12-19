@@ -49,7 +49,7 @@ onMounted(() => {
   leaflet
     .tileLayer(
       `https://api.mapbox.com/styles/v1/${usePage().props.value.mapProps.user}/${usePage().props.value.mapProps.style}/tiles/256/{z}/{x}/{y}@2x?access_token=${
-        usePage().props.value.maptoken
+        usePage().props.value.mapProps.token
       }`,
       {
         maxZoom: 10,
