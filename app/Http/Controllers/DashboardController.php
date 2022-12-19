@@ -23,6 +23,6 @@ class DashboardController extends Controller
         // $mapProps->user=env('mapuser');
         // $mapProps->style=env('mapstyle');
 
-        return Inertia::render('Dashboard', ['vehicles' => $vehicles, 'mapProps' => $mapProps]);
+        return Inertia::render('Dashboard', ['vehicles' => $vehicles, 'mapProps' => $mapProps, 'canRegister' => Route::has('register')]);
     }
 }
