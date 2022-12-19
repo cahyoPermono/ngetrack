@@ -15,6 +15,7 @@ let truckIcon = L.icon({
 defineProps({
   vehicles: Array,
   errors: Object,
+  mapProps: Object,
 });
 
 function AddVehicleToMap(){
@@ -47,7 +48,7 @@ onMounted(() => {
   //add tile layer
   leaflet
     .tileLayer(
-      `https://api.mapbox.com/styles/v1/cahyopermono/clbiqwbm4000b14nytxkvrv3j/tiles/256/{z}/{x}/{y}@2x?access_token=${
+      `https://api.mapbox.com/styles/v1/${usePage().props.value.mapProps.user}/${usePage().props.value.mapProps.style}/tiles/256/{z}/{x}/{y}@2x?access_token=${
         usePage().props.value.maptoken
       }`,
       {
