@@ -20,10 +20,15 @@ class DashboardController extends Controller
         $mapProps->token='pk.eyJ1IjoiY2FoeW9wZXJtb25vIiwiYSI6ImNsYmVxcTJmczAwaTczcGtjYnMzdmN5OHMifQ.gCywMV3PCFvmHx9HyZbraQ';
         $mapProps->user='cahyopermono';
         $mapProps->style='clbiqwbm4000b14nytxkvrv3j';
+
+        // not using env for hosting cause
         // $mapProps->token=env('maptoken');
         // $mapProps->user=env('mapuser');
         // $mapProps->style=env('mapstyle');
 
-        return Inertia::render('Dashboard', ['vehicles' => $vehicles, 'mapProps' => $mapProps, 'canRegister' => Route::has('register')]);
+        // get all tracking from latest route vehicle
+        $vehiclesTrack = Vehicle::with('activeRoutes.vehicleTracking')->get();
+
+        return Inertia::render('Dashboard', ['vehicles' => $vehicles, 'mapProps' => $mapProps, 'canLogin' => Route::has('login'), 'canRegister' => Route::has('register'), "vehicleTrack" => $vehiclesTrack]);
     }
 }

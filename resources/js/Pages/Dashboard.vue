@@ -6,36 +6,87 @@ import { usePage } from "@inertiajs/inertia-vue3";
 
 let map;
 let vehiclesLayerGroup = ref(leaflet.layerGroup());
+let trackingLayerGroup = ref(leaflet.layerGroup());
 
 let truckIcon = L.icon({
-    iconUrl: '/images/box-truck.png',
-    iconSize: [30, 30],
+  iconUrl: "/images/box-truck.png",
+  iconSize: [30, 30],
 });
 
 defineProps({
   vehicles: Array,
+  vehicleTrack: Array,
   errors: Object,
   mapProps: Object,
 });
 
-function AddVehicleToMap(){
+function AddTrackingToMap(vehicle) {
+  // add marking start
+  const fromLat = Number(vehicle.active_routes.from_lat);
+  const fromLong = Number(vehicle.active_routes.from_long);
+  const fromLatlong = leaflet.latLng(fromLat, fromLong);
+  const fromMarking = leaflet
+    .marker(fromLatlong)
+    .bindPopup(`From: ${vehicle.active_routes.from}`);
+  trackingLayerGroup.value.addLayer(fromMarking);
+
+  // add marking end
+  const toLat = Number(vehicle.active_routes.to_lat);
+  const toLong = Number(vehicle.active_routes.to_long);
+  const toLatlong = leaflet.latLng(toLat, toLong);
+  const toMarking = leaflet
+    .marker(toLatlong)
+    .bindPopup(`Destination: ${vehicle.active_routes.to}`);
+  trackingLayerGroup.value.addLayer(toMarking);
+
+  if (vehicle.active_routes.vehicle_tracking) {
+    // add marking last
+    const currentLat = Number(vehicle.active_routes.vehicle_tracking[0].lat);
+    const currentLong = Number(vehicle.active_routes.vehicle_tracking[0].long);
+    const currentLatlong = leaflet.latLng(currentLat, currentLong);
+    const currentMarking = leaflet
+      .marker(currentLatlong, { icon: truckIcon })
+      .bindPopup(`${vehicle.name}`);
+    trackingLayerGroup.value.addLayer(currentMarking);
+    
+    const oldLat = Number(vehicle.active_routes.vehicle_tracking[1].lat);
+    const oldLong = Number(vehicle.active_routes.vehicle_tracking[1].long);
+    const oldLatlong = leaflet.latLng(oldLat, oldLong);
+
+    // add poligon
+    const latlngs = [
+    fromLatlong,
+    oldLatlong,
+    currentLatlong,
+    ];
+
+    const polyline = L.polyline(latlngs, {color: 'red'});
+    trackingLayerGroup.value.addLayer(polyline);
+  }
+
+  trackingLayerGroup.value.addTo(map);
+}
+
+function AddVehicleToMap() {
   for (const vehicle of usePage().props.value.vehicles) {
     const tracking = vehicle?.active_routes?.last_tracking;
 
-    if(tracking){
+    if (tracking) {
       const lat = Number(tracking.lat);
       const long = Number(tracking.long);
 
-      const latlong = leaflet.latLng(lat,long);
-      const mark = leaflet.marker(latlong, {icon: truckIcon}).bindPopup(`${vehicle.name}`);
-      vehiclesLayerGroup.value.addLayer(mark)
+      const latlong = leaflet.latLng(lat, long);
+      const mark = leaflet
+        .marker(latlong, { icon: truckIcon })
+        .bindPopup(`${vehicle.name}`);
+      vehiclesLayerGroup.value.addLayer(mark);
     }
   }
 
   vehiclesLayerGroup.value.addTo(map);
 }
 
-function RemoveVehicleLayer(){
+function RemoveVehicleLayer() {
   map.removeLayer(vehiclesLayerGroup.value);
 }
 
@@ -48,7 +99,11 @@ onMounted(() => {
   //add tile layer
   leaflet
     .tileLayer(
-      `https://api.mapbox.com/styles/v1/${usePage().props.value.mapProps.user}/${usePage().props.value.mapProps.style}/tiles/256/{z}/{x}/{y}@2x?access_token=${
+      `https://api.mapbox.com/styles/v1/${
+        usePage().props.value.mapProps.user
+      }/${
+        usePage().props.value.mapProps.style
+      }/tiles/256/{z}/{x}/{y}@2x?access_token=${
         usePage().props.value.mapProps.token
       }`,
       {
@@ -59,7 +114,8 @@ onMounted(() => {
     )
     .addTo(map);
 
-    AddVehicleToMap();
+  AddVehicleToMap();
+  // AddTrackingToMap(usePage().props.value.vehicleTrack[0]);
 });
 </script>
 
