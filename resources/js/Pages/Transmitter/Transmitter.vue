@@ -41,24 +41,15 @@
             <table class="table-fixed w-full">
               <thead>
                 <tr class="bg-gray-100">
-                  <th class="px-4 py-2">Name</th>
-                  <th class="px-4 py-2">Type</th>
-                  <th class="px-4 py-2">Brand</th>
-                  <th class="px-4 py-2">Stock</th>
-                  <th class="px-4 py-2">Condition</th>
-                  <th class="px-4 py-2">Weight</th>
+                  <th class="px-4 py-2">IMEI Number</th>
+                  <th class="px-4 py-2">GPS Number</th>
                   <th class="px-4 py-2">Action</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="row in data" :key="row.id">
-                  <td class="border px-4 py-2">{{ row.nama }}</td>
-                  <td class="border px-4 py-2">{{ row.type }}</td>
-                  <td class="border px-4 py-2">{{ row.brand }}</td>
-                  <td class="border px-4 py-2">{{ row.stock }}</td>
-                  <td class="border px-4 py-2">{{ row.condition }}</td>
-                  <td class="border px-4 py-2">{{ row.weight }}</td>
-                  <!-- <td class="border px-4 py-2">{{ row.tglBerlaku }}</td> -->
+                  <td class="border px-4 py-2">{{ row.imei_number }}</td>
+                  <td class="border px-4 py-2">{{ row.gsm_number }}</td>
                   <td class="border px-4 py-2">
                     <button
                       @click="edit(row)"
@@ -142,7 +133,7 @@
                           <label
                             for="name"
                             class="block text-gray-700 text-sm font-bold mb-2"
-                            >Name:</label
+                            >IMEI Number:</label
                           >
                           <input
                             type="text"
@@ -158,19 +149,19 @@
                               leading-tight
                               focus:outline-none focus:shadow-outline
                             "
-                            id="nama"
-                            placeholder="Enter Name"
-                            v-model="form.nama"
+                            id="imei_number"
+                            placeholder="Enter IMEI Number"
+                            v-model="form.imei_number"
                           />
-                          <div v-if="errors.nama" class="text-red-500">
-                            {{ errors.nama }}
+                          <div v-if="errors.imei_number" class="text-red-500">
+                            {{ errors.imei_number }}
                           </div>
                         </div>
                         <div class="mb-4">
                           <label
                             for="type"
                             class="block text-gray-700 text-sm font-bold mb-2"
-                            >Type:</label
+                            >GSM Number:</label
                           >
                           <textarea
                             class="
@@ -185,126 +176,15 @@
                               leading-tight
                               focus:outline-none focus:shadow-outline
                             "
-                            id="type"
-                            v-model="form.type"
-                            placeholder="Enter Type"
+                            id="gsm_number"
+                            v-model="form.gsm_number"
+                            placeholder="Enter GSM Number"
                           ></textarea>
-                          <div v-if="errors.type" class="text-red-500">
-                            {{ errors.type }}
+                          <div v-if="errors.gsm_number" class="text-red-500">
+                            {{ errors.gsm_number }}
                           </div>
                         </div>
-
-                        <div class="mb-4">
-                          <label
-                            for="brand"
-                            class="block text-gray-700 text-sm font-bold mb-2"
-                            >Brand:</label
-                          >
-                          <textarea
-                            class="
-                              shadow
-                              appearance-none
-                              border
-                              rounded
-                              w-full
-                              py-2
-                              px-3
-                              text-gray-700
-                              leading-tight
-                              focus:outline-none focus:shadow-outline
-                            "
-                            id="brand"
-                            v-model="form.brand"
-                            placeholder="Enter Brand"
-                          ></textarea>
-                          <div v-if="errors.brand" class="text-red-500">
-                            {{ errors.brand }}
-                          </div>
-                        </div>
-
-                        <div class="mb-4">
-                          <label
-                            for="stock"
-                            class="block text-gray-700 text-sm font-bold mb-2"
-                            >Stock:</label
-                          >
-                          <textarea
-                            class="
-                              shadow
-                              appearance-none
-                              border
-                              rounded
-                              w-full
-                              py-2
-                              px-3
-                              text-gray-700
-                              leading-tight
-                              focus:outline-none focus:shadow-outline
-                            "
-                            id="stock"
-                            v-model="form.stock"
-                            placeholder="Enter Stock"
-                          ></textarea>
-                          <div v-if="errors.stock" class="text-red-500">
-                            {{ errors.stock }}
-                          </div>
-                        </div>
-
-                        <div class="mb-4">
-                          <label
-                            for="condition"
-                            class="block text-gray-700 text-sm font-bold mb-2"
-                            >Condition:</label
-                          >
-                          <textarea
-                            class="
-                              shadow
-                              appearance-none
-                              border
-                              rounded
-                              w-full
-                              py-2
-                              px-3
-                              text-gray-700
-                              leading-tight
-                              focus:outline-none focus:shadow-outline
-                            "
-                            id="condition"
-                            v-model="form.condition"
-                            placeholder="Enter Condition"
-                          ></textarea>
-                          <div v-if="errors.condition" class="text-red-500">
-                            {{ errors.condition }}
-                          </div>
-                        </div>
-
-                        <div class="mb-4">
-                          <label
-                            for="weight"
-                            class="block text-gray-700 text-sm font-bold mb-2"
-                            >Weight:</label
-                          >
-                          <textarea
-                            class="
-                              shadow
-                              appearance-none
-                              border
-                              rounded
-                              w-full
-                              py-2
-                              px-3
-                              text-gray-700
-                              leading-tight
-                              focus:outline-none focus:shadow-outline
-                            "
-                            id="weight"
-                            v-model="form.weight"
-                            placeholder="Enter Weight"
-                          ></textarea>
-                          <div v-if="errors.weight" class="text-red-500">
-                            {{ errors.weight }}
-                          </div>
-                        </div>
+                        
 
                       </div>
                     </div>
@@ -451,12 +331,8 @@
   let editMode = ref(false);
   let isOpen = ref(false);
   let form = ref({
-    nama: null,
-    type: null,
-    brand: null,
-    stock:null,
-    condition:null,
-    weight:null,
+    imei_number: null,
+    gsm_number: null,
   });
   
   function openModal() {
@@ -469,12 +345,8 @@
   }
   function reset() {
     form.value = {
-      nama: null,
-      type: null,
-      brand: null,
-      stock:null,
-      condition:null,
-      weight:null,
+      imei_number: null,
+      gsm_number: null,
     };
   }
   function save(data) {

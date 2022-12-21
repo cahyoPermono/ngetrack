@@ -9,5 +9,5 @@ class Transmitter extends Model
 {
     use HasFactory;
      //membuat variable
-     protected $fillable = ['nama','type','brand','stock','condition','weight'];
+     protected $fillable = ['imei_number','gsm_number'];
 }

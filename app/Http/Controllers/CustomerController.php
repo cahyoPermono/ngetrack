@@ -39,8 +39,9 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         Validator::make($request->all(), [
-            'name' => ['required'],
+            'name_pt' => ['required'],
             'address' => ['required'],
+            'name_pic' => ['required'],
             'phone' => ['required'],
         ])->validate();
   
@@ -82,8 +83,9 @@ class CustomerController extends Controller
     public function update(Request $request, customer $customer)
     {
         Validator::make($request->all(), [
-            'name' => ['required'],
+            'name_pt' => ['required'],
             'address' => ['required'],
+            'name_pic' => ['required'],
             'phone' => ['required'],
         ])->validate();
   

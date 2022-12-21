@@ -39,12 +39,8 @@ class TransmitterController extends Controller
     public function store(Request $request)
     {
         Validator::make($request->all(), [
-            'nama' => ['required'],
-            'type' => ['required'],
-            'brand' => ['required'],
-            'stock' => ['required'],
-            'condition' => ['required'],
-            'weight' => ['required'],
+            'imei_number' => ['required'],
+            'gsm_number' => ['required'],
             
         ])->validate();
   
@@ -86,12 +82,8 @@ class TransmitterController extends Controller
     public function update(Request $request, Transmitter $transmitter)
     {
         Validator::make($request->all(), [
-            'nama' => ['required'],
-            'type' => ['required'],
-            'brand' => ['required'],
-            'stock' => ['required'],
-            'condition' => ['required'],
-            'weight' => ['required'],
+            'imei_number' => ['required'],
+            'gsm_number' => ['required'],
         ])->validate();
   
         if ($request->has('id')) {

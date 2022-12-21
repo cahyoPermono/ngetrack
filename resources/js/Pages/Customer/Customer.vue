@@ -41,8 +41,9 @@
             <table class="table-fixed w-full">
               <thead>
                 <tr class="bg-gray-100">
-                  <th class="px-4 py-2">Customer Name</th>
+                  <th class="px-4 py-2">Company Name</th>
                   <th class="px-4 py-2">Address</th>
+                  <th class="px-4 py-2">PIC Name</th>
                   <th class="px-4 py-2">Phone</th>
                   <!-- <th class="px-4 py-2">Created Date</th> -->
                   <th class="px-4 py-2">Action</th>
@@ -50,8 +51,9 @@
               </thead>
               <tbody>
                 <tr v-for="row in data" :key="row.id">
-                  <td class="border px-4 py-2">{{ row.name }}</td>
+                  <td class="border px-4 py-2">{{ row.name_pt }}</td>
                   <td class="border px-4 py-2">{{ row.address }}</td>
+                  <td class="border px-4 py-2">{{ row.name_pic }}</td>
                   <td class="border px-4 py-2">{{ row.phone }}</td>
                   <td class="border px-4 py-2">
                     <button
@@ -136,7 +138,7 @@
                           <label
                             for="name"
                             class="block text-gray-700 text-sm font-bold mb-2"
-                            >Customer Name:</label
+                            >Company Name:</label
                           >
                           <input
                             type="text"
@@ -152,12 +154,12 @@
                               leading-tight
                               focus:outline-none focus:shadow-outline
                             "
-                            id="name"
-                            placeholder="Enter Customer Name"
-                            v-model="form.name"
+                            id="name_pt"
+                            placeholder="Enter Company Name"
+                            v-model="form.name_pt"
                           />
-                          <div v-if="errors.name" class="text-red-500">
-                            {{ errors.name }}
+                          <div v-if="errors.name_pt" class="text-red-500">
+                            {{ errors.name_pt }}
                           </div>
                         </div>
                         <div class="mb-4">
@@ -187,6 +189,35 @@
                             {{ errors.address }}
                           </div>
                         </div>
+                        
+                        <div class="mb-4">
+                          <label
+                            for="type"
+                            class="block text-gray-700 text-sm font-bold mb-2"
+                            >PIC Name:</label
+                          >
+                          <textarea
+                            class="
+                              shadow
+                              appearance-none
+                              border
+                              rounded
+                              w-full
+                              py-2
+                              px-3
+                              text-gray-700
+                              leading-tight
+                              focus:outline-none focus:shadow-outline
+                            "
+                            id="name_pic"
+                            v-model="form.name_pic"
+                            placeholder="Enter PIC Name"
+                          ></textarea>
+                          <div v-if="errors.pic_name" class="text-red-500">
+                            {{ errors.pic_name }}
+                          </div>
+                        </div>
+
                         <div class="mb-4">
                           <label
                             for="type"
@@ -359,8 +390,9 @@
   let editMode = ref(false);
   let isOpen = ref(false);
   let form = ref({
-    name: null,
+    name_pt: null,
     address: null,
+    name_pic: null,
     phone: null,
   });
   
@@ -374,8 +406,9 @@
   }
   function reset() {
     form.value = {
-      name: null,
+      name_pt: null,
       address: null,
+      name_pic: null,
       phone: null,
     };
   }

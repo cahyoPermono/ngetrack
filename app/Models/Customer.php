@@ -9,5 +9,5 @@ class customer extends Model
 {
     use HasFactory;
     //membuat variable
-    protected $fillable = ['name','address','phone'];
+    protected $fillable = ['name_pt','address','name_pic','phone'];
 }
