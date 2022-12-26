@@ -41,11 +41,12 @@
           <table class="table-fixed w-full">
             <thead>
               <tr class="bg-gray-100">
-                <th class="px-4 py-2 w-80">Registration Number</th>
-                <th class="px-4 py-2">Vehicle</th>
-                <th class="px-4 py-2">From</th>
+                <th class="px-4 py-2 w-72">Registration Number</th>
+                <th class="px-4 py-2 w-24">Vehicle</th>
+                <th class="px-4 py-2 w-24">From</th>
                 <th class="px-4 py-2">To</th>
                 <th class="px-4 py-2">Driver</th>
+                <th class="px-4 py-2 w-44">Transmitter</th>
                 <th class="px-4 py-2">Status</th>
                 <th class="px-4 py-2 w-72">Action</th>
               </tr>
@@ -57,6 +58,7 @@
                 <td class="border px-4 py-2">{{ row.from }}</td>
                 <td class="border px-4 py-2">{{ row.to }}</td>
                 <td class="border px-4 py-2">{{ row.driver }}</td>
+                <td class="border px-4 py-2">{{ row.transmitter.imei_number }}</td>
                 <td class="border px-4 py-2">{{ row.status }}</td>
                 <td class="border px-4 py-2">
                   <button
@@ -74,7 +76,7 @@
                   >
                     Edit
                   </button>
-                  <button
+                  <button v-if="row.status === 'on'"
                     @click="endRoute(row)"
                     class="
                       bg-orange-500
@@ -87,7 +89,7 @@
                       mr-2
                     "
                   >
-                    Delete
+                    Finish
                   </button>
                   <button
                     @click="deleteRow(row)"

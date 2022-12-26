@@ -19,7 +19,7 @@ class VehicleRouteController extends Controller
      */
     public function index()
     {
-        $data = VehicleRoute::with('vehicle')->get();
+        $data = VehicleRoute::with('vehicle', 'transmitter')->get();
         $vehicles = Vehicle::all();
         return Inertia::render('Vehicle/VehicleRoute', ['data' => $data, 'vehicles' => $vehicles]);
     }

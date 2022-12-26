@@ -24,4 +24,9 @@ class VehicleRoute extends Model
     {
         return $this->belongsTo(Vehicle::class);
     }
+
+    public function transmitter()
+    {
+        return $this->belongsTo(Transmitter::class);
+    }
 }
