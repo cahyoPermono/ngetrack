@@ -100,21 +100,26 @@ function AddVehicleToMap() {
     vehiclesLayerGroup.value.addTo(map);
 }
 
-function RemoveVehicleGroupLayer() {
+function removeVehicleGroupLayer() {
     map.removeLayer(vehiclesLayerGroup.value);
 }
 
-function RemoveTrackingGroupLayer() {
+function removeTrackingGroupLayer() {
     map.removeLayer(trackingLayerGroup.value);
+}
+
+function removeAllLayer(){
+  removeVehicleGroupLayer();
+  removeTrackingGroupLayer();
 }
 
 function onChangeTracking(event) {
     if (event.target.selectedIndex === 0) {
         console.log(event.target.selectedIndex);
-        RemoveTrackingGroupLayer();
+        removeAllLayer();
         AddVehicleToMap();
     } else {
-        RemoveVehicleGroupLayer();
+      removeAllLayer();
         AddTrackingToMap(
             usePage().props.value.vehicleTrack[event.target.selectedIndex - 1]
         );
@@ -147,7 +152,7 @@ onMounted(() => {
 
     AddVehicleToMap();
     // AddTrackingToMap(usePage().props.value.vehicleTrack[0]);
-    RemoveTrackingGroupLayer();
+    removeTrackingGroupLayer();
 });
 </script>
 
