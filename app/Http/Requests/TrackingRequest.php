@@ -19,7 +19,7 @@ class TrackingRequest extends FormRequest
         return [
             'long' => ['required'],
             'lat' => ['required'],
-            'reg_no' => ['required'],
+            'imei' => ['required'],
         ];
     }
 

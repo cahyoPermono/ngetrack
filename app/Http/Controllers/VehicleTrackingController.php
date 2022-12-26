@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TrackingRequest;
+use App\Models\Transmitter;
 use App\Models\VehicleRoute;
 use App\Models\VehicleTracking;
 use Illuminate\Http\Request;
@@ -38,28 +39,29 @@ class VehicleTrackingController extends Controller
      */
     public function store(TrackingRequest $request)
     {
+        // check if transmitter with requested imei exsist
+        $transmitter = Transmitter::where('imei_number', $request->imei)->first();
 
-        $route = VehicleRoute::where('reg_no', $request->reg_no)->first();
+        if($transmitter){
+            // get Route with that imei that status is on
+            $route = VehicleRoute::where('transmitter_id',$transmitter->id)->where('status','on')->first();
 
-        if (!$route) {
+            if($route){
+                $requestData = $request->only('long', 'lat');
+                $requestData['vehicle_route_id'] = $route->id;
+
+                return VehicleTracking::create($requestData);
+
+            } else {
+                return response()->json([
+                    'message' => 'Active Route Not Found'
+                ], 404);
+            }
+        }else {
             return response()->json([
-                'message' => 'Route Not Found'
+                'message' => 'Imei Number '.$request->imei.' not Valid'
             ], 404);
         }
-
-        if ($route->status != 'on') {
-            return response()->json([
-                'message' => 'Route Already Finished'
-            ], 400);
-        }
-
-        $requestData = $request->only('long', 'lat');
-        $requestData['vehicle_route_id'] = $route->id;
-
-        return VehicleTracking::create($requestData);
-
-        // return redirect()->back()
-        //     ->with('message', 'Routes Created Successfully.');
     }
 
     /**
