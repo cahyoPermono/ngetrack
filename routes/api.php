@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('trackings', [VehicleTrackingController::class, 'store'])->name('trackings.create');
+Route::get('trackings', [VehicleTrackingController::class, 'index'])->name('trackings.list');
 
 Route::get('test', function(){
     event(new NewTrade('test bro'));
