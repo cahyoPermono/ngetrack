@@ -4,6 +4,7 @@ import { onMounted, ref, watch } from "vue";
 import leaflet from "leaflet";
 import { usePage } from "@inertiajs/inertia-vue3";
 import { Inertia } from "@inertiajs/inertia";
+import DialogModal from "../Components/DialogModal.vue";
 
 let map;
 let vehiclesLayerGroup = ref(leaflet.layerGroup());
