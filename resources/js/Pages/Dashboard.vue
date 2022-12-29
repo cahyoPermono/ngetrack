@@ -93,7 +93,7 @@ function AddVehicleToMap() {
     for (const vehicle of usePage().props.value.vehicleTrack) {
         const tracking = vehicle?.active_routes;
 
-        if (tracking.vehicle_tracking) {
+        if (tracking?.vehicle_tracking) {
             const lat = Number(tracking.vehicle_tracking[0].lat);
             const long = Number(tracking.vehicle_tracking[0].long);
 
