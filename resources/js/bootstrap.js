@@ -36,5 +36,5 @@ window.Echo = new Echo({
     cluster: 'mt1',
     disableStats: true,
     // enabledTransports: ['ws', 'wss'],
-    // enabledTransports: ['ws', 'wss'],
+    enabledTransports: ['ws'],
 });
