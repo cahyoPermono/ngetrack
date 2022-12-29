@@ -33,6 +33,8 @@ window.Echo = new Echo({
     // wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
     // forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
     forceTLS: false,
-    cluster: 'mt1'
+    cluster: 'mt1',
+    disableStats: true,
+    // enabledTransports: ['ws', 'wss'],
     // enabledTransports: ['ws', 'wss'],
 });
