@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\NewTrade;
 use App\Http\Controllers\VehicleTrackingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,3 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('trackings', [VehicleTrackingController::class, 'store'])->name('trackings.create');
 
+Route::get('test', function(){
+    event(new NewTrade('test bro'));
+    return "halo";
+});

@@ -2,8 +2,8 @@ POST http://localhost:8000/api/trackings HTTP/1.1
 content-type: application/json
 
 {
-    "long": "109.247833",
-    "lat": "-7.431391",
+    "long": "107.613144",
+    "lat": "-6.905977",
     "imei": "866771027165959"
 }
 
@@ -17,3 +17,6 @@ content-type: application/json
     "lat": "-7.319563",
     "reg_no": "01GMCT8719Q7KNDJCGJ86EZH1Y"
 }
+###
+
+GET http://localhost:8000/api/test

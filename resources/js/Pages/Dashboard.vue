@@ -1,12 +1,14 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import leaflet from "leaflet";
 import { usePage } from "@inertiajs/inertia-vue3";
+import { Inertia } from "@inertiajs/inertia";
 
 let map;
 let vehiclesLayerGroup = ref(leaflet.layerGroup());
 let trackingLayerGroup = ref(leaflet.layerGroup());
+let selectedIndex = ref(0);
 
 let truckIcon = L.icon({
     iconUrl: "/images/box-truck.png",
@@ -14,13 +16,16 @@ let truckIcon = L.icon({
 });
 
 defineProps({
-    vehicles: Array,
+    // vehicles: Array,
     vehicleTrack: Array,
     errors: Object,
     mapProps: Object,
 });
 
 function AddTrackingToMap(vehicle) {
+    // remove all layer
+    removeAllLayer();
+
     trackingLayerGroup = ref(leaflet.layerGroup());
     // add marking start
     const fromLat = Number(vehicle.active_routes.from_lat);
@@ -81,13 +86,16 @@ function AddTrackingToMap(vehicle) {
 }
 
 function AddVehicleToMap() {
-    vehiclesLayerGroup = ref(leaflet.layerGroup());
-    for (const vehicle of usePage().props.value.vehicles) {
-        const tracking = vehicle?.active_routes?.last_tracking;
+    // remove all layer first
+    removeAllLayer();
 
-        if (tracking) {
-            const lat = Number(tracking.lat);
-            const long = Number(tracking.long);
+    vehiclesLayerGroup = ref(leaflet.layerGroup());
+    for (const vehicle of usePage().props.value.vehicleTrack) {
+        const tracking = vehicle?.active_routes;
+
+        if (tracking.vehicle_tracking) {
+            const lat = Number(tracking.vehicle_tracking[0].lat);
+            const long = Number(tracking.vehicle_tracking[0].long);
 
             const latlong = leaflet.latLng(lat, long);
             const mark = leaflet
@@ -108,27 +116,35 @@ function removeTrackingGroupLayer() {
     map.removeLayer(trackingLayerGroup.value);
 }
 
-function removeAllLayer(){
-  removeVehicleGroupLayer();
-  removeTrackingGroupLayer();
+function removeAllLayer() {
+    removeVehicleGroupLayer();
+    removeTrackingGroupLayer();
 }
 
 function onChangeTracking(event) {
-    if (event.target.selectedIndex === 0) {
-        console.log(event.target.selectedIndex);
-        removeAllLayer();
+    selectedIndex.value = event.target.selectedIndex;
+    updateMap();
+}
+
+function updateMap() {
+    if (selectedIndex.value === 0) {
         AddVehicleToMap();
     } else {
-      removeAllLayer();
         AddTrackingToMap(
-            usePage().props.value.vehicleTrack[event.target.selectedIndex - 1]
+            usePage().props.value.vehicleTrack[selectedIndex.value - 1]
         );
     }
 }
 
 onMounted(() => {
+    window.Echo.channel("tracking").listen("VehicleTrackingEvent", async (e) => {
+        // reload all data
+        await Inertia.reload({
+          onFinish: () => updateMap(),
+        });
+    });
     console.log(usePage().props.value);
-    console.log(usePage().props.value.vehicles[0].active_routes.last_tracking);
+    // console.log(usePage().props.value.vehicles[0].active_routes.last_tracking);
     // init map
     map = leaflet.map("map").setView([-2.54893, 118.01486], 5);
 
@@ -152,7 +168,7 @@ onMounted(() => {
 
     AddVehicleToMap();
     // AddTrackingToMap(usePage().props.value.vehicleTrack[0]);
-    removeTrackingGroupLayer();
+    // removeTrackingGroupLayer();
 });
 </script>
 
@@ -174,7 +190,7 @@ onMounted(() => {
                 >
                     <option :value="null" selected="">All</option>
                     <option
-                        v-for="vehicle in vehicles"
+                        v-for="vehicle in vehicleTrack"
                         :value="vehicle"
                         :key="vehicle.id"
                     >

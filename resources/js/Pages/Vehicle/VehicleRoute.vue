@@ -178,6 +178,7 @@
                           "
                           v-model="form.vehicle_id"
                         >
+                          <option value="" disabled selected>Choose a Vehicle</option>
                           <option
                             v-for="vehicle in vehicles"
                             :value="vehicle.id"
@@ -186,8 +187,44 @@
                             {{ vehicle.name }}
                           </option>
                         </select>
-                        <div v-if="errors.driver" class="text-red-500">
-                          {{ errors.driver }}
+                        <div v-if="errors.vehicle_id" class="text-red-500">
+                          {{ errors.vehicle_id }}
+                        </div>
+                      </div>
+                      <div class="mb-4">
+                        <label
+                          for="transmitter"
+                          class="block text-gray-700 text-sm font-bold mb-2"
+                          >Transmitter:</label
+                        >
+                        <select
+                          id="transmitter"
+                          name="transmitter"
+                          class="
+                            shadow
+                            appearance-none
+                            border
+                            rounded
+                            w-full
+                            py-2
+                            px-3
+                            text-gray-700
+                            leading-tight
+                            focus:outline-none focus:shadow-outline
+                          "
+                          v-model="form.transmitter_id"
+                        >
+                          <option value="" disabled selected>Choose a Transmitter</option>
+                          <option
+                            v-for="transmitter in transmitters"
+                            :value="transmitter.id"
+                            :key="transmitter.id"
+                          >
+                            {{ transmitter.imei_number }}
+                          </option>
+                        </select>
+                        <div v-if="errors.vehicle_id" class="text-red-500">
+                          {{ errors.vehicle_id }}
                         </div>
                       </div>
                       <div class="mb-4">
@@ -529,11 +566,15 @@ defineProps({
   data: Array,
   errors: Object,
   vehicles: Array,
+  transmitters: Array,
 });
 
 let editMode = ref(false);
 let isOpen = ref(false);
-let form = ref({});
+let form = ref({
+  vehicle_id: "",
+  transmitter_id: "",
+});
 
 function openModal() {
   isOpen.value = true;
@@ -559,11 +600,13 @@ function save(data) {
   Inertia.post("/routes", data, {
     onError: (errors) => {
       console.log(errors);
+    },
+    onSuccess: (item) => {
+      reset();
+      closeModal();
+      editMode.value = false;
     }
   });
-  reset();
-  closeModal();
-  editMode.value = false;
 }
 function edit(data) {
   form.value = Object.assign({}, data);

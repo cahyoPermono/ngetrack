@@ -13,7 +13,7 @@ class DashboardController extends Controller
     public function index()
     {
         // get all vehicle with latest tracking
-        $vehicles = Vehicle::with('activeRoutes.lastTracking')->get();
+        // $vehicles = Vehicle::with('activeRoutes.lastTracking')->get();
 
         //get all map properties from env
         $mapProps = new stdClass();
@@ -29,6 +29,7 @@ class DashboardController extends Controller
         // get all tracking from latest route vehicle
         $vehiclesTrack = Vehicle::with('activeRoutes.vehicleTracking')->get();
 
-        return Inertia::render('Dashboard', ['vehicles' => $vehicles, 'mapProps' => $mapProps, 'canLogin' => Route::has('login'), 'canRegister' => Route::has('register'), "vehicleTrack" => $vehiclesTrack]);
+        // return Inertia::render('Dashboard', ['vehicles' => $vehicles, 'mapProps' => $mapProps, 'canLogin' => Route::has('login'), 'canRegister' => Route::has('register'), "vehicleTrack" => $vehiclesTrack]);
+        return Inertia::render('Dashboard', ['mapProps' => $mapProps, 'canLogin' => Route::has('login'), 'canRegister' => Route::has('register'), "vehicleTrack" => $vehiclesTrack]);
     }
 }

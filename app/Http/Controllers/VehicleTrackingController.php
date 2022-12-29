@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewTrade;
+use App\Events\VehicleTracking as EventsVehicleTracking;
+use App\Events\VehicleTrackingEvent;
 use App\Http\Requests\TrackingRequest;
 use App\Models\Transmitter;
 use App\Models\VehicleRoute;
@@ -50,8 +53,10 @@ class VehicleTrackingController extends Controller
                 $requestData = $request->only('long', 'lat');
                 $requestData['vehicle_route_id'] = $route->id;
 
-                return VehicleTracking::create($requestData);
+                $vt = VehicleTracking::create($requestData);
 
+                event(new VehicleTrackingEvent('incoming-data'));
+                return $vt;
             } else {
                 return response()->json([
                     'message' => 'Active Route Not Found'

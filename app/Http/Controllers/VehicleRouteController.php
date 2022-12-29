@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transmitter;
 use App\Models\Vehicle;
 use App\Models\VehicleRoute;
 use Illuminate\Http\Request;
@@ -21,7 +22,8 @@ class VehicleRouteController extends Controller
     {
         $data = VehicleRoute::with('vehicle', 'transmitter')->get();
         $vehicles = Vehicle::all();
-        return Inertia::render('Vehicle/VehicleRoute', ['data' => $data, 'vehicles' => $vehicles]);
+        $transmitters = Transmitter::all();
+        return Inertia::render('Vehicle/VehicleRoute', ['data' => $data, 'vehicles' => $vehicles, 'transmitters' => $transmitters]);
     }
 
     /**
@@ -44,6 +46,7 @@ class VehicleRouteController extends Controller
     {
         Validator::make($request->all(), [
             'vehicle_id' => ['required'],
+            'transmitter_id' => ['required'],
             'from' => ['required'],
             'from_long' => ['required'],
             'from_lat' => ['required'],
@@ -58,13 +61,22 @@ class VehicleRouteController extends Controller
         // check vehicle avaibility for new route
         $activeVehicle = VehicleRoute::where('vehicle_id', $request->vehicle_id)->where('status', 'on')->get();
 
+        // check if transmitter is active in another route
+        $activeTransmitter = VehicleRoute::where(['transmitter_id' => $request->transmitter_id, 'status' => 'on'])->first();
+
+        if($activeTransmitter){
+            return redirect()->back()->withErrors([
+                'message' => 'Cannot create a new route because Transmitter is already used in active routes'
+            ]);
+        }
+
         if(count($activeVehicle) > 0){
             return redirect()->back()->withErrors([
                 'message' => 'Cannot create a new route because there is still an active route on the vehicle'
             ]);
         }
 
-        // add noreg from uuid
+        // add noreg from ulid
         $requestData['reg_no'] = (string) Str::ulid();
         $requestData['status'] = 'on';
 
