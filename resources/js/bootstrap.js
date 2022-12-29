@@ -30,7 +30,7 @@ window.Echo = new Echo({
     wsHost: import.meta.env.VITE_PUSHER_HOST ? import.meta.env.VITE_PUSHER_HOST : `127.0.0.1`,
     // wsHost: '127.0.0.1',
     // wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
-    wsPort: import.meta.env.VITE_PUSHER_PORT ?? 6001,
+    wsPort: import.meta.env.VITE_PUSHER_PORT,
     // wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
     // forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
     forceTLS: false,
