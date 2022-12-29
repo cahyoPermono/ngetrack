@@ -1,4 +1,4 @@
-POST http://localhost:8000/api/trackings HTTP/1.1
+POST http://tracking.globalorbitek.co.id/api/trackings HTTP/1.1
 content-type: application/json
 
 {
