@@ -50,7 +50,7 @@ function AddTrackingToMap(vehicle) {
         .bindPopup(`Destination: ${vehicle.active_routes.to}`);
     trackingLayerGroup.value.addLayer(toMarking);
 
-    if (vehicle.active_routes.vehicle_tracking) {
+    if (vehicle.active_routes.vehicle_tracking.length > 0) {
         const latlngs = [fromLatlong];
 
         for (
@@ -84,6 +84,11 @@ function AddTrackingToMap(vehicle) {
 
         const polyline = L.polyline(latlngs, { color: "red" });
         trackingLayerGroup.value.addLayer(polyline);
+    } else {
+        const currentMarking = leaflet
+            .marker(fromLatlong, { icon: truckIcon })
+            .bindPopup(`${vehicle.name}`);
+        trackingLayerGroup.value.addLayer(currentMarking);
     }
 
     trackingLayerGroup.value.addTo(map);
@@ -147,7 +152,7 @@ onMounted(() => {
           onFinish: () => updateMap(),
         });
     });
-    
+
     // init map
     map = leaflet.map("map").setView([-2.54893, 118.01486], 5);
 
