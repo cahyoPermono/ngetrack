@@ -64,7 +64,6 @@ function AddTrackingToMap(vehicle) {
             const currentLong = Number(
                 vehicle.active_routes.vehicle_tracking[index].long
             );
-            console.log("test", { currentLat, currentLong, index });
             const currentLatlong = leaflet.latLng(currentLat, currentLong);
 
             latlngs.push(currentLatlong);
@@ -148,8 +147,7 @@ onMounted(() => {
           onFinish: () => updateMap(),
         });
     });
-    console.log(usePage().props.value);
-    // console.log(usePage().props.value.vehicles[0].active_routes.last_tracking);
+    
     // init map
     map = leaflet.map("map").setView([-2.54893, 118.01486], 5);
 
