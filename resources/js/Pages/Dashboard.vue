@@ -27,6 +27,10 @@ function AddTrackingToMap(vehicle) {
     // remove all layer
     removeAllLayer();
 
+    if(!vehicle.active_routes){
+        return
+    }
+
     trackingLayerGroup = ref(leaflet.layerGroup());
     // add marking start
     const fromLat = Number(vehicle.active_routes.from_lat);
