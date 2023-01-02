@@ -23,6 +23,7 @@
         "vue": "^3.2.31"
     },
     "dependencies": {
+        "@heroicons/vue": "^2.0.13",
         "leaflet": "^1.9.3"
     }
 }

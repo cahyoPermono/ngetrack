@@ -1,5 +1,6 @@
 <script setup>
 import Modal from './Modal.vue';
+import Alert from './Alert.vue';
 
 const emit = defineEmits(['close']);
 
@@ -16,6 +17,10 @@ defineProps({
         type: Boolean,
         default: true,
     },
+    alert: {
+        type: Object,
+        default: {},
+    }
 });
 
 const close = () => {
@@ -36,6 +41,9 @@ const close = () => {
             </div>
 
             <div class="mt-4">
+                <div v-if="alert.type" class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <Alert :type="alert.type" :message="alert.message" />
+                </div>
                 <slot name="content" />
             </div>
         </div>

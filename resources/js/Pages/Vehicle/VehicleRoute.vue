@@ -86,23 +86,34 @@
             </div>
         </div>
 
-        <DialogModal :show="isOpen" @close="closeModal">
+        <DialogModal :show="isOpen" @close="closeModal" :alert="alert">
             <template #title> Create Routes </template>
-
             <template #content>
                 <form>
                     <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                         <div class="">
                             <div class="mb-4">
                                 <InputLabel value="Vehicle:" for="vehicles" />
-                                <SelectInput id="vehicles" :items="vehicles" v-model="form.vehicle_id"/>
+                                <SelectInput
+                                    id="vehicles"
+                                    :items="vehicles"
+                                    v-model="form.vehicle_id"
+                                    class="mt-1 w-full block"
+                                />
+                                <InputError :message="errors.vehicle_id" />
                             </div>
                             <div class="mb-4">
                                 <InputLabel
                                     for="transmitter"
                                     value="Transmitter:"
                                 />
-                                <SelectInput refer="imei_number" id="transmitter" :items="transmitters" v-model="form.transmitter_id"/>
+                                <SelectInput
+                                    refer="imei_number"
+                                    id="transmitter"
+                                    :items="transmitters"
+                                    v-model="form.transmitter_id"
+                                    class="mt-1 w-full block"
+                                />
                                 <InputError :message="errors.transmitter_id" />
                             </div>
                             <div class="mb-4">
@@ -281,6 +292,7 @@ let form = ref({
     vehicle_id: "",
     transmitter_id: "",
 });
+let alert = ref({});
 
 function openModal() {
     isOpen.value = true;
@@ -305,7 +317,12 @@ function reset() {
 function save(data) {
     Inertia.post("/routes", data, {
         onError: (errors) => {
-            console.log(errors);
+            if (errors.message) {
+                alert.value = {
+                    type: "error",
+                    message: errors.message,
+                };
+            }
         },
         onSuccess: (item) => {
             reset();
