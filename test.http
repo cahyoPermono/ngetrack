@@ -2,9 +2,9 @@ POST http://tracking.globalorbitek.co.id/api/trackings HTTP/1.1
 content-type: application/json
 
 {
-    "long": "107.613144",
-    "lat": "-6.905977",
-    "imei": "866771027165959"
+   "long":"110.416664",
+    "lat":"-6.966667",
+    "imei":"866771027165959"
 }
 
 ####Tasik
