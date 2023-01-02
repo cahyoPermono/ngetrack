@@ -94,199 +94,116 @@
                     <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                         <div class="">
                             <div class="mb-4">
-                                <label
-                                    for="vehicles"
-                                    class="block text-gray-700 text-sm font-bold mb-2"
-                                    >Vehicle:</label
-                                >
-                                <select
-                                    id="vehicles"
-                                    name="vehicle"
-                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    v-model="form.vehicle_id"
-                                >
-                                    <option value="" disabled selected>
-                                        Choose a Vehicle
-                                    </option>
-                                    <option
-                                        v-for="vehicle in vehicles"
-                                        :value="vehicle.id"
-                                        :key="vehicle.id"
-                                    >
-                                        {{ vehicle.name }}
-                                    </option>
-                                </select>
-                                <div
-                                    v-if="errors.vehicle_id"
-                                    class="text-red-500"
-                                >
-                                    {{ errors.vehicle_id }}
-                                </div>
+                                <InputLabel value="Vehicle:" for="vehicles" />
+                                <SelectInput id="vehicles" :items="vehicles" v-model="form.vehicle_id"/>
                             </div>
                             <div class="mb-4">
-                                <label
+                                <InputLabel
                                     for="transmitter"
-                                    class="block text-gray-700 text-sm font-bold mb-2"
-                                    >Transmitter:</label
-                                >
-                                <select
-                                    id="transmitter"
-                                    name="transmitter"
-                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    v-model="form.transmitter_id"
-                                >
-                                    <option value="" disabled selected>
-                                        Choose a Transmitter
-                                    </option>
-                                    <option
-                                        v-for="transmitter in transmitters"
-                                        :value="transmitter.id"
-                                        :key="transmitter.id"
-                                    >
-                                        {{ transmitter.imei_number }}
-                                    </option>
-                                </select>
-                                <div
-                                    v-if="errors.vehicle_id"
-                                    class="text-red-500"
-                                >
-                                    {{ errors.vehicle_id }}
-                                </div>
+                                    value="Transmitter:"
+                                />
+                                <SelectInput refer="imei_number" id="transmitter" :items="transmitters" v-model="form.transmitter_id"/>
+                                <InputError :message="errors.transmitter_id" />
                             </div>
                             <div class="mb-4">
-                                <label
-                                    for="from"
-                                    class="block text-gray-700 text-sm font-bold mb-2"
-                                    >From:</label
-                                >
-                                <input
-                                    type="text"
-                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                <InputLabel for="from" value="From:" />
+                                <TextInput
                                     id="from"
-                                    placeholder="Enter From"
                                     v-model="form.from"
+                                    type="text"
+                                    class="mt-1 block w-full"
+                                    required
+                                    placeholder="Enter From"
                                 />
-                                <div v-if="errors.from" class="text-red-500">
-                                    {{ errors.from }}
-                                </div>
+                                <InputError :message="errors.from" />
                             </div>
                             <div class="flex justify-between">
                                 <div class="mb-4">
-                                    <label
+                                    <InputLabel
                                         for="from_long"
-                                        class="block text-gray-700 text-sm font-bold mb-2"
-                                        >From Longitude:</label
-                                    >
-                                    <input
-                                        type="text"
-                                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        value="From Longitude:"
+                                    />
+                                    <TextInput
                                         id="from"
-                                        placeholder="Enter From Longitude"
                                         v-model="form.from_long"
+                                        type="text"
+                                        class="mt-1 block w-full"
+                                        required
+                                        placeholder="Enter From Longitude"
                                     />
-                                    <div
-                                        v-if="errors.from_long"
-                                        class="text-red-500"
-                                    >
-                                        {{ errors.from_long }}
-                                    </div>
+                                    <InputError :message="errors.from_long" />
                                 </div>
                                 <div class="mb-4">
-                                    <label
+                                    <InputLabel
                                         for="from_lat"
-                                        class="block text-gray-700 text-sm font-bold mb-2"
-                                        >from Latitude:</label
-                                    >
-                                    <input
-                                        type="text"
-                                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        value="from Latitude:"
+                                    />
+                                    <TextInput
                                         id="from"
-                                        placeholder="Enter From Latitude"
                                         v-model="form.from_lat"
+                                        type="text"
+                                        class="mt-1 block w-full"
+                                        required
+                                        placeholder="Enter From Latitude"
                                     />
-                                    <div
-                                        v-if="errors.from_lat"
-                                        class="text-red-500"
-                                    >
-                                        {{ errors.from_lat }}
-                                    </div>
+                                    <InputError :message="errors.from_lat" />
                                 </div>
                             </div>
                             <div class="mb-4">
-                                <label
-                                    for="to"
-                                    class="block text-gray-700 text-sm font-bold mb-2"
-                                    >To:</label
-                                >
-                                <input
-                                    type="text"
-                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    id="to"
-                                    placeholder="Enter Destination"
+                                <InputLabel for="to" value="To:" />
+                                <TextInput
+                                    id="from"
                                     v-model="form.to"
+                                    type="text"
+                                    class="mt-1 block w-full"
+                                    required
+                                    placeholder="Enter Destination"
                                 />
-                                <div v-if="errors.to" class="text-red-500">
-                                    {{ errors.to }}
-                                </div>
+                                <InputError :message="errors.to" />
                             </div>
-                            <div class="flex justify-between">
+                            <div class="flex justify-between gap-1">
                                 <div class="mb-4">
-                                    <label
+                                    <InputLabel
                                         for="to_long"
-                                        class="block text-gray-700 text-sm font-bold mb-2"
-                                        >Destination Longitude:</label
-                                    >
-                                    <input
-                                        type="text"
-                                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        id="to_long"
-                                        placeholder="Enter Destination Longitude"
-                                        v-model="form.to_long"
+                                        value="Destination Longitude:"
                                     />
-                                    <div
-                                        v-if="errors.to_long"
-                                        class="text-red-500"
-                                    >
-                                        {{ errors.to_long }}
-                                    </div>
+                                    <TextInput
+                                        id="from"
+                                        v-model="form.to_long"
+                                        type="text"
+                                        class="mt-1 block w-full"
+                                        required
+                                        placeholder="Enter Destination Longitude"
+                                    />
+                                    <InputError :message="errors.to_long" />
                                 </div>
                                 <div class="mb-4">
-                                    <label
+                                    <InputLabel
+                                        value="Destination Latitude:"
                                         for="to_lat"
-                                        class="block text-gray-700 text-sm font-bold mb-2"
-                                        >Destination Latitude:</label
-                                    >
-                                    <input
-                                        type="text"
-                                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        id="to_lat"
-                                        placeholder="Enter Destination Latitude"
-                                        v-model="form.to_lat"
                                     />
-                                    <div
-                                        v-if="errors.to_lat"
-                                        class="text-red-500"
-                                    >
-                                        {{ errors.to_lat }}
-                                    </div>
+                                    <TextInput
+                                        id="to_lat"
+                                        v-model="form.to_lat"
+                                        type="text"
+                                        class="mt-1 block w-full"
+                                        required
+                                        placeholder="Enter Destination Latitude"
+                                    />
+                                    <InputError :message="errors.to_lat" />
                                 </div>
                             </div>
                             <div class="mb-4">
-                                <label
-                                    for="driver"
-                                    class="block text-gray-700 text-sm font-bold mb-2"
-                                    >Driver:</label
-                                >
-                                <input
-                                    type="text"
-                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    id="driver"
-                                    placeholder="Enter Driver Name"
+                                <InputLabel for="driver" value="Driver:" />
+                                <TextInput
+                                    id="to_lat"
                                     v-model="form.driver"
+                                    type="text"
+                                    class="mt-1 block w-full"
+                                    required
+                                    placeholder="Enter Driver Name"
                                 />
-                                <div v-if="errors.driver" class="text-red-500">
-                                    {{ errors.driver }}
-                                </div>
+                                <InputError :message="errors.driver" />
                             </div>
                         </div>
                     </div>
@@ -340,6 +257,10 @@ import { Inertia } from "@inertiajs/inertia";
 import DialogModal from "../../Components/DialogModal.vue";
 import PrimaryButton from "../../Components/PrimaryButton.vue";
 import SecondaryButton from "../../Components/SecondaryButton.vue";
+import InputLabel from "../../Components/InputLabel.vue";
+import TextInput from "../../Components/TextInput.vue";
+import InputError from "../../Components/InputError.vue";
+import SelectInput from "../../Components/SelectInput.vue";
 
 defineProps({
     data: Array,
