@@ -11,6 +11,7 @@ use App\Models\VehicleRoute;
 use App\Models\VehicleTracking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Inertia\Inertia;
 
 class VehicleTrackingController extends Controller
 {
@@ -24,6 +25,25 @@ class VehicleTrackingController extends Controller
         return VehicleTracking::with('vehicleRoute.vehicle')->get();
     }
 
+    public function daily()
+    {
+       return VehicleTracking::selectRaw("COUNT(*) count, DATE_FORMAT(created_at, '%Y %m %w %e') date")->groupBy('date')->get();
+    }
+
+    public function weekly()
+    {
+       return VehicleTracking::selectRaw("COUNT(*) count, DATE_FORMAT(created_at, '%Y %m %w') date")->groupBy('date')->get();
+    }
+
+    public function monthly()
+    {
+       return VehicleTracking::selectRaw("COUNT(*) count, DATE_FORMAT(created_at, '%Y %m') date")->groupBy('date')->get();
+    }
+
+    public function yearly()
+    {
+       return VehicleTracking::selectRaw("COUNT(*) count, DATE_FORMAT(created_at, '%Y') date")->groupBy('date')->get();
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -77,7 +97,7 @@ class VehicleTrackingController extends Controller
      */
     public function show(VehicleTracking $vehicleTracking)
     {
-        //
+        
     }
 
     /**
