@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-import { CheckCircleIcon, XCircleIcon } from "@heroicons/vue/20/solid";
+// import { CheckCircleIcon, XCircleIcon } from "@heroicons/vue/20/solid";
 
 defineProps({
     type: {
