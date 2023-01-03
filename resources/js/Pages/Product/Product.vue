@@ -103,6 +103,21 @@
                                     <InputError :message="errors.name" />
                                 </div>
                                 <div class="mb-4">
+                                    <InputLabel
+                                        for="jenis"
+                                        value="Product Type:"
+                                    />
+                                    <TextInput
+                                        id="type"
+                                        v-model="form.jenis"
+                                        type="text"
+                                        class="mt-1 block w-full"
+                                        required
+                                        placeholder="Enter Product Type"
+                                    />
+                                    <InputError :message="errors.jenis" />
+                                </div>
+                                <div class="mb-4">
                                 <InputLabel for="amount" value="Product Amount:" />
                                 <TextInput
                                     id="jumlah"
