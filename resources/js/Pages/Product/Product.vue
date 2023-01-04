@@ -122,19 +122,17 @@
                                 <TextInput
                                     id="jumlah"
                                     v-model="form.jumlah"
-                                    type="text"
+                                    type=number
                                     class="mt-1 block w-full"
                                     required
                                     placeholder="Enter Product Amount"
                                 />
                                 <InputError :message="errors.jumlah" />
                             </div>
-                      
                         </div>
                     </div>
                 </form>
             </template>
-
             <template #footer>
                 <span
                     class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto"
@@ -190,6 +188,7 @@ import InputLabel from "../../Components/InputLabel.vue";
 import TextInput from "../../Components/TextInput.vue";
 import InputError from "../../Components/InputError.vue";
 import SelectInput from "../../Components/SelectInput.vue";
+import NumberInput from "../../Components/NumberInput.vue";
 
 defineProps({
   data: Array,

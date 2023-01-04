@@ -36,13 +36,13 @@
                 my-3
               "
             >
-              Create New GPS Transmitter
+              Create New GSM Transmitter
             </button>
             <table class="table-fixed w-full">
               <thead>
                 <tr class="bg-gray-100">
                   <th class="px-4 py-2">IMEI Number</th>
-                  <th class="px-4 py-2">GPS Number</th>
+                  <th class="px-4 py-2">GSM Number</th>
                   <th class="px-4 py-2">Action</th>
                 </tr>
               </thead>
@@ -88,7 +88,7 @@
         </div>
       </div>
       <DialogModal :show="isOpen" @close="closeModal" :alert="alert">
-            <template #title> Create GPS Transmitter </template>
+            <template #title> Create GSM Transmitter </template>
             <template #content>
                 <form>
                     <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
