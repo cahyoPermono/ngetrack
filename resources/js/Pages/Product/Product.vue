@@ -188,7 +188,6 @@ import InputLabel from "../../Components/InputLabel.vue";
 import TextInput from "../../Components/TextInput.vue";
 import InputError from "../../Components/InputError.vue";
 import SelectInput from "../../Components/SelectInput.vue";
-import NumberInput from "../../Components/NumberInput.vue";
 
 defineProps({
   data: Array,
