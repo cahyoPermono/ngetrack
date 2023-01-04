@@ -22,10 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('trackings', [VehicleTrackingController::class, 'store'])->name('trackings.create');
 Route::get('trackings', [VehicleTrackingController::class, 'index'])->name('trackings.list');
-Route::get('daily', [VehicleTrackingController::class, 'daily'])->name('trackings.report');
-Route::get('weekly', [VehicleTrackingController::class, 'weekly'])->name('trackings.report');
-Route::get('monthly', [VehicleTrackingController::class, 'monthly'])->name('trackings.report');
-Route::get('yearly', [VehicleTrackingController::class, 'yearly'])->name('trackings.report');
+Route::get('daily', [VehicleTrackingController::class, 'daily'])->name('trackings.daily');
+Route::get('weekly', [VehicleTrackingController::class, 'weekly'])->name('trackings.weekly');
+Route::get('monthly', [VehicleTrackingController::class, 'monthly'])->name('trackings.monthly');
+Route::get('yearly', [VehicleTrackingController::class, 'yearly'])->name('trackings.yearly');
 
 Route::get('test', function(){
     event(new NewTrade('test bro'));
