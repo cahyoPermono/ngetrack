@@ -1,128 +1,108 @@
 <template>
-  <app-layout>
-    <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
-          <div
-            class=" bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
-            role="alert"
-            v-if="$page.props.flash.message"
-          >
-            <div class="flex">
-              <div>
-                <p class="text-sm">{{ $page.props.flash.message }}</p>
-              </div>
+    <app-layout>
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div
+                    class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4"
+                >
+                    <div
+                        class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
+                        role="alert"
+                        v-if="$page.props.flash.message"
+                    >
+                        <div class="flex">
+                            <div>
+                                <p class="text-sm">
+                                    {{ $page.props.flash.message }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        v-if="isAdmin"
+                        @click="openModal()"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3"
+                    >
+                        Create New Products
+                    </button>
+                    <table class="table-fixed w-full">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="px-4 py-2">Product Name</th>
+                                <th class="px-4 py-2">Product Type</th>
+                                <th class="px-4 py-2">Amount</th>
+                                <th v-if="isAdmin" class="px-4 py-2">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="row in data" :key="row.id">
+                                <td class="border px-4 py-2">{{ row.name }}</td>
+                                <td class="border px-4 py-2">
+                                    {{ row.jenis }}
+                                </td>
+                                <td class="border px-4 py-2">
+                                    {{ row.jumlah }}
+                                </td>
+                                <td v-if="isAdmin" class="border px-4 py-2">
+                                    <button
+                                        @click="edit(row)"
+                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        @click="deleteRow(row)"
+                                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-          </div>
-          <button
-            @click="openModal()"
-            class="
-              bg-blue-500
-              hover:bg-blue-700
-              text-white
-              font-bold
-              py-2
-              px-4
-              rounded
-              my-3
-            "
-          >
-            Create New Products
-          </button>
-          <table class="table-fixed w-full">
-            <thead>
-              <tr class="bg-gray-100">
-                <th class="px-4 py-2">Product Name</th>
-                <th class="px-4 py-2">Product Type</th>
-                <th class="px-4 py-2">Amount</th>
-                <th class="px-4 py-2">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="row in data" :key="row.id">
-                <td class="border px-4 py-2">{{ row.name }}</td>
-                <td class="border px-4 py-2">{{ row.jenis }}</td>
-                <td class="border px-4 py-2">{{ row.jumlah }}</td>
-                <td class="border px-4 py-2">
-                  <button
-                    @click="edit(row)"
-                    class="
-                      bg-blue-500
-                      hover:bg-blue-700
-                      text-white
-                      font-bold
-                      py-2
-                      px-4
-                      rounded
-                      mr-2
-                    "
-                  >
-                    Edit
-                  </button>
-                  <button
-                    @click="deleteRow(row)"
-                    class="
-                      bg-red-500
-                      hover:bg-red-700
-                      text-white
-                      font-bold
-                      py-2
-                      px-4
-                      rounded
-                    "
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
         </div>
-      </div>
-    </div>
 
-    <DialogModal :show="isOpen" @close="closeModal" :alert="alert">
+        <DialogModal :show="isOpen" @close="closeModal" :alert="alert">
             <template #title> Create Product </template>
             <template #content>
                 <form>
                     <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                         <div class="">
-                          <div class="mb-4">
-                                    <InputLabel
-                                        for="name"
-                                        value="Product Name:"
-                                    />
-                                    <TextInput
-                                        id="name"
-                                        v-model="form.name"
-                                        type="text"
-                                        class="mt-1 block w-full"
-                                        required
-                                        placeholder="Enter Product Name"
-                                    />
-                                    <InputError :message="errors.name" />
-                                </div>
-                                <div class="mb-4">
-                                    <InputLabel
-                                        for="jenis"
-                                        value="Product Type:"
-                                    />
-                                    <TextInput
-                                        id="type"
-                                        v-model="form.jenis"
-                                        type="text"
-                                        class="mt-1 block w-full"
-                                        required
-                                        placeholder="Enter Product Type"
-                                    />
-                                    <InputError :message="errors.jenis" />
-                                </div>
-                                <div class="mb-4">
-                                <InputLabel for="amount" value="Product Amount:" />
+                            <div class="mb-4">
+                                <InputLabel for="name" value="Product Name:" />
+                                <TextInput
+                                    id="name"
+                                    v-model="form.name"
+                                    type="text"
+                                    class="mt-1 block w-full"
+                                    required
+                                    placeholder="Enter Product Name"
+                                />
+                                <InputError :message="errors.name" />
+                            </div>
+                            <div class="mb-4">
+                                <InputLabel for="jenis" value="Product Type:" />
+                                <TextInput
+                                    id="type"
+                                    v-model="form.jenis"
+                                    type="text"
+                                    class="mt-1 block w-full"
+                                    required
+                                    placeholder="Enter Product Type"
+                                />
+                                <InputError :message="errors.jenis" />
+                            </div>
+                            <div class="mb-4">
+                                <InputLabel
+                                    for="amount"
+                                    value="Product Amount:"
+                                />
                                 <TextInput
                                     id="jumlah"
                                     v-model="form.jumlah"
-                                    type=number
+                                    type="number"
                                     class="mt-1 block w-full"
                                     required
                                     placeholder="Enter Product Amount"
@@ -170,79 +150,76 @@
                     </PrimaryButton>
                 </span>
             </template>
-
         </DialogModal>
-
-
-  </app-layout>
+    </app-layout>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import AppLayout from "../../Layouts/AppLayout.vue";
-import { Inertia } from '@inertiajs/inertia'
+import { Inertia } from "@inertiajs/inertia";
 import DialogModal from "../../Components/DialogModal.vue";
 import PrimaryButton from "../../Components/PrimaryButton.vue";
 import SecondaryButton from "../../Components/SecondaryButton.vue";
 import InputLabel from "../../Components/InputLabel.vue";
 import TextInput from "../../Components/TextInput.vue";
 import InputError from "../../Components/InputError.vue";
-import SelectInput from "../../Components/SelectInput.vue";
+import { usePermissions } from "@/composables/UsePermissions.js";
 
 defineProps({
-  data: Array,
-  errors: Object,
-
+    data: Array,
+    errors: Object,
 });
 
 let editMode = ref(false);
 let isOpen = ref(false);
 let form = ref({
-  name: null,
-  jenis: null,
-  jumlah: null,
-  //tglBerlaku: null,
-});
-
-function openModal() {
-  isOpen.value = true;
-}
-function closeModal() {
-  isOpen.value = false;
-  reset();
-  editMode.value = false;
-}
-function reset() {
-  form.value = {
     name: null,
     jenis: null,
     jumlah: null,
     //tglBerlaku: null,
-  };
+});
+
+const isAdmin = usePermissions('admin');
+
+function openModal() {
+    isOpen.value = true;
+}
+function closeModal() {
+    isOpen.value = false;
+    reset();
+    editMode.value = false;
+}
+function reset() {
+    form.value = {
+        name: null,
+        jenis: null,
+        jumlah: null,
+        //tglBerlaku: null,
+    };
 }
 function save(data) {
-
-  Inertia.post("/products", data);
-  reset();
-  closeModal();
-  editMode.value = false;
+    Inertia.post("/products", data);
+    reset();
+    closeModal();
+    editMode.value = false;
 }
 function edit(data) {
-  form.value = Object.assign({}, data);
-  editMode.value = true;
-  openModal();
+    form.value = Object.assign({}, data);
+    editMode.value = true;
+    openModal();
 }
 function update(data) {
-  data._method = "PUT";
-  Inertia.post("/products/" + data.id, data);
-  reset();
-  closeModal();
+    data._method = "PUT";
+    Inertia.post("/products/" + data.id, data);
+    reset();
+    closeModal();
 }
 function deleteRow(data) {
-  if (!confirm("Are you sure want to remove?")) return;
-  data._method = "DELETE";
-  Inertia.post("/products/" + data.id, data);
-  reset();
-  closeModal();
+    if (!confirm("Are you sure want to remove?")) return;
+    data._method = "DELETE";
+    Inertia.post("/products/" + data.id, data);
+    reset();
+    closeModal();
 }
 </script>
