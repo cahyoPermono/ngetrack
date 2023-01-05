@@ -40,7 +40,8 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'message' => fn () => $request->session()->get('message')
             ],
-            'maptoken' => env('maptoken')
+            'maptoken' => env('maptoken'),
+            'userPermissions' => $request->user() ? $request->user()->teamPermissions($request->user()->currentTeam) : [],
         ]);
     }
 }

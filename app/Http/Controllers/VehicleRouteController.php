@@ -18,11 +18,11 @@ class VehicleRouteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = VehicleRoute::with('vehicle', 'transmitter')->get();
+        $data = VehicleRoute::with('vehicle', 'transmitter')->where('team_id', $request->user()->currentTeam->id)->get();
         $vehicles = Vehicle::all();
-        $transmitters = Transmitter::all();
+        $transmitters = Transmitter::where('team_id', $request->user()->currentTeam->id)->get();
         return Inertia::render('Vehicle/VehicleRoute', ['data' => $data, 'vehicles' => $vehicles, 'transmitters' => $transmitters]);
     }
 
@@ -59,10 +59,10 @@ class VehicleRouteController extends Controller
         $requestData = $request->all();
 
         // check vehicle avaibility for new route
-        $activeVehicle = VehicleRoute::where('vehicle_id', $request->vehicle_id)->where('status', 'on')->get();
+        $activeVehicle = VehicleRoute::where('vehicle_id', $request->vehicle_id)->where('status', 'on')->where('team_id', $request->user()->currentTeam->id)->get();
 
         // check if transmitter is active in another route
-        $activeTransmitter = VehicleRoute::where(['transmitter_id' => $request->transmitter_id, 'status' => 'on'])->first();
+        $activeTransmitter = VehicleRoute::where(['transmitter_id' => $request->transmitter_id, 'status' => 'on'])->where('team_id', $request->user()->currentTeam->id)->first();
 
         if($activeTransmitter){
             return redirect()->back()->withErrors([
@@ -79,6 +79,7 @@ class VehicleRouteController extends Controller
         // add noreg from ulid
         $requestData['reg_no'] = (string) Str::ulid();
         $requestData['status'] = 'on';
+        $requestData['team_id'] = $request->user()->currentTeam->id;
 
         error_log($request);
 

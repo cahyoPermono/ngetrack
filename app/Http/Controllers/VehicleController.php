@@ -14,9 +14,9 @@ class VehicleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Vehicle::all();
+        $data = Vehicle::where('team_id', $request->user()->currentTeam->id)->get();
         return Inertia::render('Vehicle/Vehicle', ['data' => $data]);
     }
 
@@ -43,8 +43,11 @@ class VehicleController extends Controller
             'type' => ['required'],
             'plate' => ['required'],
         ])->validate();
+
+        $requestData = $request->all();
+        $requestData['team_id'] = $request->user()->currentTeam->id;
   
-        Vehicle::create($request->all());
+        Vehicle::create($requestData);
   
         return redirect()->back()
                     ->with('message', 'Vessels Created Successfully.');

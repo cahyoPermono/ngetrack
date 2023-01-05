@@ -339,6 +339,8 @@ function edit(data) {
 function update(data) {
     data._method = "PUT";
     delete data.vehicle;
+    delete data.transmitter;
+    console.log(data);
     Inertia.post("/routes/" + data.id, data);
     reset();
     closeModal();
