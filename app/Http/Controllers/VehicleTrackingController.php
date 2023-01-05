@@ -22,27 +22,27 @@ class VehicleTrackingController extends Controller
      */
     public function index()
     {
-        return VehicleTracking::with('vehicleRoute.vehicle')->get();
+        return VehicleTracking::with('vehicleRoute.vehicle')->simplePaginate(15);
     }
 
     public function daily()
     {
-       return VehicleTracking::selectRaw("COUNT(*) count, DATE_FORMAT(created_at, '%Y %m %w %e') date")->groupBy('date')->get();
+       return VehicleTracking::selectRaw("COUNT(*) count, to_char(created_at, 'yyyy mm dd') date")->groupBy('date')->get();
     }
 
     public function weekly()
     {
-       return VehicleTracking::selectRaw("COUNT(*) count, DATE_FORMAT(created_at, '%Y %m %w') date")->groupBy('date')->get();
+       return VehicleTracking::selectRaw("COUNT(*) count, to_char(created_at, 'yyyy mm w') date")->groupBy('date')->get();
     }
 
     public function monthly()
     {
-       return VehicleTracking::selectRaw("COUNT(*) count, DATE_FORMAT(created_at, '%Y %m') date")->groupBy('date')->get();
+       return VehicleTracking::selectRaw("COUNT(*) count, to_char(created_at, 'yyyy mm') date")->groupBy('date')->get();
     }
 
     public function yearly()
     {
-       return VehicleTracking::selectRaw("COUNT(*) count, DATE_FORMAT(created_at, '%Y') date")->groupBy('date')->get();
+       return VehicleTracking::selectRaw("COUNT(*) count, to_char(created_at, 'yyyy') date")->groupBy('date')->get();
     }
     /**
      * Show the form for creating a new resource.
