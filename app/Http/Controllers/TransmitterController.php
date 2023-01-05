@@ -14,9 +14,9 @@ class TransmitterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = transmitter::all();
+        $data = transmitter::where('team_id', $request->user()->currentTeam->id)->get();
         return Inertia::render('Transmitter/Transmitter', ['data' => $data]);
     }
 
@@ -43,8 +43,11 @@ class TransmitterController extends Controller
             'gsm_number' => ['required'],
             
         ])->validate();
+
+        $requestData = $request->all();
+        $requestData['team_id'] = $request->user()->currentTeam->id;
   
-        Transmitter::create($request->all());
+        Transmitter::create($requestData);
   
         return redirect()->back()
                     ->with('message', 'GPS Transmitter Created Successfully.');
