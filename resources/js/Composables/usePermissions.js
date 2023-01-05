@@ -4,7 +4,6 @@ import { usePage } from "@inertiajs/inertia-vue3";
 export function usePermissions(permission) {
     if(usePage().props.value.userPermissions.includes('*')){
         return true;
-        
     }
     return usePage().props.value.userPermissions.includes(permission);
 }
