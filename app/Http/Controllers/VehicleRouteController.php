@@ -21,7 +21,7 @@ class VehicleRouteController extends Controller
     public function index(Request $request)
     {
         $data = VehicleRoute::with('vehicle', 'transmitter')->where('team_id', $request->user()->currentTeam->id)->get();
-        $vehicles = Vehicle::all();
+        $vehicles = Vehicle::where('team_id', $request->user()->currentTeam->id)->get();
         $transmitters = Transmitter::where('team_id', $request->user()->currentTeam->id)->get();
         return Inertia::render('Vehicle/VehicleRoute', ['data' => $data, 'vehicles' => $vehicles, 'transmitters' => $transmitters]);
     }
