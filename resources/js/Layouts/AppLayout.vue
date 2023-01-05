@@ -69,13 +69,13 @@ const logout = () => {
                                 </NavLink>
                             </div>
 
-                            <div v-if="isAdmin" class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink :href="route('products')" :active="route().current('products')">
                                     Products
                                 </NavLink>
                             </div>
 
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <div v-if="isAdmin" class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink :href="route('customers')" :active="route().current('customers')">
                                     Customers
                                 </NavLink>
