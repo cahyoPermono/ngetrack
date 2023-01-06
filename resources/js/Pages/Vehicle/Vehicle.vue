@@ -184,6 +184,9 @@ let form = ref({
 function openModal() {
   isOpen.value = true;
 }
+
+let alert = ref({});
+
 function closeModal() {
   isOpen.value = false;
   reset();

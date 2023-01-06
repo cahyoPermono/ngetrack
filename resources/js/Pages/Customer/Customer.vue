@@ -194,6 +194,8 @@
     name_pic: null,
     phone: null,
   });
+
+  let alert = ref({});
   
   function openModal() {
     isOpen.value = true;

@@ -164,6 +164,8 @@
     imei_number: null,
     gsm_number: null,
   });
+
+  let alert = ref({});
   
   function openModal() {
     isOpen.value = true;

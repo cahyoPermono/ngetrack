@@ -179,6 +179,8 @@ let form = ref({
 
 const isAdmin = usePermissions('admin');
 
+let alert = ref({});
+
 function openModal() {
     isOpen.value = true;
 }
