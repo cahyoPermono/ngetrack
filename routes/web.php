@@ -7,6 +7,7 @@ use App\Http\Controllers\VesselController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransmitterController;
 use App\Http\Controllers\VehicleRouteController;
+use App\Http\Controllers\VehicleTrackingController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -67,4 +68,7 @@ Route::middleware([
     Route::post('routes', [VehicleRouteController::class, 'store'])->name('routes.create');
     Route::put('routes/{route}', [VehicleRouteController::class, 'update'])->name('routes.update');
     Route::delete('routes/{route}', [VehicleRouteController::class, 'destroy'])->name('routes.destroy');
+
+    // Routing for csv generator
+    Route::get('/exportTracking', [VehicleTrackingController::class, 'exportCsv'])->name('reportcsv');
 });
