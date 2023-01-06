@@ -59,15 +59,12 @@ class CreateNewUser implements CreatesNewUsers
     {
         $team = Team::where('name', 'global')->first();
 
-        if ($team) {
-            $user->current_team_id = $team->id;
-            $user->save();
+        // $user->teams()->attach($team);
+        $user->switchTeam($team);
 
-            // DB::table('team_user')->insert([
-            //     'team_id' => $team->id,
-            //     'user_id' => $user->id,
-            //     'role' => 'user'
-            // ]);
-        }
+        // if ($team) {
+        //     $user->current_team_id = $team->id;
+        //     $user->save();
+        // }
     }
 }

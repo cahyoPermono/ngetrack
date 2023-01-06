@@ -10,7 +10,7 @@ use stdClass;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // get all vehicle with latest tracking
         // $vehicles = Vehicle::with('activeRoutes.lastTracking')->get();
@@ -27,7 +27,7 @@ class DashboardController extends Controller
         // $mapProps->style=env('mapstyle');
 
         // get all tracking from latest route vehicle
-        $vehiclesTrack = Vehicle::with('activeRoutes.vehicleTracking')->get();
+        $vehiclesTrack = Vehicle::with('activeRoutes.vehicleTracking')->where('team_id', $request->user()->currentTeam->id)->get();
 
         // return Inertia::render('Dashboard', ['vehicles' => $vehicles, 'mapProps' => $mapProps, 'canLogin' => Route::has('login'), 'canRegister' => Route::has('register'), "vehicleTrack" => $vehiclesTrack]);
         return Inertia::render('Dashboard', ['mapProps' => $mapProps, 'canLogin' => Route::has('login'), 'canRegister' => Route::has('register'), "vehicleTrack" => $vehiclesTrack]);
