@@ -23,21 +23,11 @@
               </div>
             </div>
           </div>
-          <button
-            @click="openModal()"
-            class="
-              bg-blue-500
-              hover:bg-blue-700
-              text-white
-              font-bold
-              py-2
-              px-4
-              rounded
-              my-3
-            "
-          >
+          <PrimaryButton
+            @click="openModal()" 
+            class="my-3">
             Create New Vehicle
-          </button>
+          </PrimaryButton>
           <table class="table-fixed w-full">
             <thead>
               <tr class="bg-gray-100">
@@ -53,35 +43,15 @@
                 <td class="border px-4 py-2">{{ row.name }}</td>
                 <td class="border px-4 py-2">{{ row.type }}</td>
                 <td class="border px-4 py-2">
-                  <button
+                  <PrimaryButton
                     @click="edit(row)"
-                    class="
-                      bg-blue-500
-                      hover:bg-blue-700
-                      text-white
-                      font-bold
-                      py-2
-                      px-4
-                      rounded
-                      mr-2
-                    "
-                  >
+                    class="mr-2">
                     Edit
-                  </button>
-                  <button
-                    @click="deleteRow(row)"
-                    class="
-                      bg-red-500
-                      hover:bg-red-700
-                      text-white
-                      font-bold
-                      py-2
-                      px-4
-                      rounded
-                    "
-                  >
+                  </PrimaryButton>
+                  <DangerButton  
+                    @click="deleteRow(row)">
                     Delete
-                  </button>
+                  </DangerButton>
                 </td>
               </tr>
             </tbody>
@@ -192,6 +162,7 @@ import SecondaryButton from "../../Components/SecondaryButton.vue";
 import InputLabel from "../../Components/InputLabel.vue";
 import TextInput from "../../Components/TextInput.vue";
 import InputError from "../../Components/InputError.vue";
+import DangerButton from "../../Components/DangerButton.vue";
 
 defineProps({
   data: Array,
@@ -213,6 +184,9 @@ let form = ref({
 function openModal() {
   isOpen.value = true;
 }
+
+let alert = ref({});
+
 function closeModal() {
   isOpen.value = false;
   reset();

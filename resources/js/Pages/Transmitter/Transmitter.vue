@@ -23,21 +23,11 @@
                 </div>
               </div>
             </div>
-            <button
+            <PrimaryButton
               @click="openModal()"
-              class="
-                bg-blue-500
-                hover:bg-blue-700
-                text-white
-                font-bold
-                py-2
-                px-4
-                rounded
-                my-3
-              "
-            >
+              class="my-3">
               Create New GSM Transmitter
-            </button>
+            </PrimaryButton>
             <table class="table-fixed w-full">
               <thead>
                 <tr class="bg-gray-100">
@@ -51,35 +41,15 @@
                   <td class="border px-4 py-2">{{ row.imei_number }}</td>
                   <td class="border px-4 py-2">{{ row.gsm_number }}</td>
                   <td class="border px-4 py-2">
-                    <button
+                    <PrimaryButton
                       @click="edit(row)"
-                      class="
-                        bg-blue-500
-                        hover:bg-blue-700
-                        text-white
-                        font-bold
-                        py-2
-                        px-4
-                        rounded
-                        mr-2
-                      "
-                    >
+                      class="mr-2">
                       Edit
-                    </button>
-                    <button
-                      @click="deleteRow(row)"
-                      class="
-                        bg-red-500
-                        hover:bg-red-700
-                        text-white
-                        font-bold
-                        py-2
-                        px-4
-                        rounded
-                      "
-                    >
+                    </PrimaryButton>
+                    <DangerButton
+                      @click="deleteRow(row)" >
                       Delete
-                    </button>
+                    </DangerButton>
                   </td>
                 </tr>
               </tbody>
@@ -180,6 +150,7 @@
   import InputLabel from "../../Components/InputLabel.vue";
   import TextInput from "../../Components/TextInput.vue";
   import InputError from "../../Components/InputError.vue";
+  import DangerButton from "../../Components/DangerButton.vue";
   
   defineProps({
     data: Array,
@@ -193,6 +164,8 @@
     imei_number: null,
     gsm_number: null,
   });
+
+  let alert = ref({});
   
   function openModal() {
     isOpen.value = true;
