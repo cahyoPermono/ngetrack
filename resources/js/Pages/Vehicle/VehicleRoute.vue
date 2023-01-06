@@ -18,12 +18,11 @@
                             </div>
                         </div>
                     </div>
-                    <button
+                    <PrimaryButton
                         @click="openModal()"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3"
-                    >
+                        class="my-3" >
                         Create New Route
-                    </button>
+                    </PrimaryButton>
                     <table class="table-fixed w-full">
                         <thead>
                             <tr class="bg-gray-100">
@@ -59,25 +58,23 @@
                                     {{ row.status }}
                                 </td>
                                 <td class="border px-4 py-2">
-                                    <button
+                                    <PrimaryButton
                                         @click="edit(row)"
-                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-                                    >
+                                        class="mr-2" >
                                         Edit
-                                    </button>
-                                    <button
+                                    </PrimaryButton>
+                                    <SecondaryButton
                                         v-if="row.status === 'on'"
                                         @click="endRoute(row)"
-                                        class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded mr-2"
-                                    >
+                                        class="mr-2" >
                                         Finish
-                                    </button>
-                                    <button
+                                    </SecondaryButton>
+                                    <DangerButton
                                         @click="deleteRow(row)"
                                         class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                                     >
                                         Delete
-                                    </button>
+                                    </DangerButton>
                                 </td>
                             </tr>
                         </tbody>
@@ -272,6 +269,7 @@ import InputLabel from "../../Components/InputLabel.vue";
 import TextInput from "../../Components/TextInput.vue";
 import InputError from "../../Components/InputError.vue";
 import SelectInput from "../../Components/SelectInput.vue";
+import DangerButton from "../../Components/DangerButton.vue";
 
 defineProps({
     data: Array,
