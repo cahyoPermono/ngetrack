@@ -86,6 +86,12 @@ const logout = () => {
                                     GPS Transmitter
                                 </NavLink>
                             </div>
+
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink :href="route('troubleshoots')" :active="route().current('troubleshoots')">
+                                    Troubleshoots
+                                </NavLink>
+                            </div>
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">

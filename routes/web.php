@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\VesselController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransmitterController;
+use App\Http\Controllers\TroubleshootController;
 use App\Http\Controllers\VehicleRouteController;
 use App\Http\Controllers\VehicleTrackingController;
 use Illuminate\Foundation\Application;
@@ -68,6 +69,12 @@ Route::middleware([
     Route::post('routes', [VehicleRouteController::class, 'store'])->name('routes.create');
     Route::put('routes/{route}', [VehicleRouteController::class, 'update'])->name('routes.update');
     Route::delete('routes/{route}', [VehicleRouteController::class, 'destroy'])->name('routes.destroy');
+
+    //Routing Troubleshoot Routes
+    Route::get('troubleshoots', [TroubleshootController::class, 'index'])->name('troubleshoots');
+    Route::post('troubleshoots', [TroubleshootController::class, 'store'])->name('troubleshoots.create');
+    Route::put('troubleshoots/{troubleshoots}', [TroubleshootController::class, 'update'])->name('troubleshoots.update');
+    Route::delete('troubleshoots/{troubleshoots}', [TroubleshootController::class, 'destroy'])->name('troubleshoots.destroy');
 
     // Routing for csv generator
     Route::get('/exportTracking', [VehicleTrackingController::class, 'exportCsv'])->name('reportcsv');

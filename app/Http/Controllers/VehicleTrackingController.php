@@ -45,6 +45,11 @@ class VehicleTrackingController extends Controller
     {
         return VehicleTracking::selectRaw("COUNT(*) count, to_char(created_at, 'yyyy') date")->groupBy('date')->get();
     }
+
+    public function troubleshoots()
+    {
+        return "halo";
+    }
     /**
      * Show the form for creating a new resource.
      *
