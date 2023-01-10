@@ -46,7 +46,7 @@ const logout = () => {
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('dashboard')">
-                                    <ApplicationMark class="block h-24 w-40" />
+                                    <ApplicationMark />
                                 </Link>
                             </div>
 
@@ -124,7 +124,7 @@ const logout = () => {
                                                 </div>
 
                                                 <!-- Team Settings -->
-                                                <DropdownLink :href="route('teams.show', $page.props.user.current_team)">
+                                                <DropdownLink v-if="isAdmin" :href="route('teams.show', $page.props.user.current_team)">
                                                     Team Settings
                                                 </DropdownLink>
 

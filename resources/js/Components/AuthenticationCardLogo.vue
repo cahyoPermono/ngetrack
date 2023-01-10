@@ -4,7 +4,8 @@ import { Link } from "@inertiajs/inertia-vue3";
 
 <template>
   <Link :href="'/'">
-    <svg
+    <p class="font-serif text-6xl font-extrabold">OrbitTrack</p>
+    <!-- <svg
       version="1.2"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 448 100"
@@ -22,6 +23,6 @@ import { Link } from "@inertiajs/inertia-vue3";
         />
       </defs>
       <use id="ngetrack" href="#img1" x="80" y="0" />
-    </svg>
+    </svg> -->
   </Link>
 </template>
