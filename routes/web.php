@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\VesselController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransmitterController;
+use App\Http\Controllers\VehiclePictureController;
 use App\Http\Controllers\VehicleRouteController;
 use App\Http\Controllers\VehicleTrackingController;
 use Illuminate\Foundation\Application;
@@ -41,6 +42,7 @@ Route::middleware([
 
     // Routing Vehicles
     Route::get('vehicles', [VehicleController::class, 'index'])->name('vehicles');
+    Route::get('vehicles/{vehicle}', [VehicleController::class, 'show'])->name('vehicles.show');
     Route::post('vehicles', [VehicleController::class, 'store'])->name('vehicles.create');
     Route::put('vehicles/{vehicle}', [VehicleController::class, 'update'])->name('vehicles.update');
     Route::delete('vehicles/{vehicle}', [VehicleController::class, 'destroy'])->name('vehicles.destroy');
@@ -71,4 +73,7 @@ Route::middleware([
 
     // Routing for csv generator
     Route::get('/exportTracking', [VehicleTrackingController::class, 'exportCsv'])->name('reportcsv');
+
+    // Route for upload vehicle picture
+    Route::post('pictures', [VehiclePictureController::class, 'store'])->name('pictures.create');
 });

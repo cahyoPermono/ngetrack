@@ -16,7 +16,7 @@ class VehicleController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Vehicle::where('team_id', $request->user()->currentTeam->id)->get();
+        $data = Vehicle::with('vehiclePictures')->where('team_id', $request->user()->currentTeam->id)->get();
         return Inertia::render('Vehicle/Vehicle', ['data' => $data]);
     }
 
@@ -61,7 +61,7 @@ class VehicleController extends Controller
      */
     public function show(Vehicle $vehicle)
     {
-        //
+        return $vehicle;
     }
 
     /**
