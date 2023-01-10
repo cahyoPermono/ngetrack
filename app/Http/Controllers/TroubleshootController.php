@@ -101,9 +101,6 @@ class TroubleshootController extends Controller
     public function update(Request $request, Troubleshoot $troubleshoot)
     {
         Validator::make($request->all(), [
-            'source' => ['required'],
-            'imei' => ['required'],
-            'team_id' => ['required'],
             'description' => ['required'],
         ])->validate();
   

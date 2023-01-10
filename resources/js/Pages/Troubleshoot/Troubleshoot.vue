@@ -136,9 +136,6 @@ defineProps({
 let editMode = ref(false);
 let isOpen = ref(false);
 let form = ref({
-    source: null,
-    imei: null,
-    team_id: null,
     description: null,
 });
 
@@ -154,9 +151,6 @@ function closeModal() {
 }
 function reset() {
     form.value = {
-        source: null,
-        imei: null,
-        team_id: null,
         description: null,
     };
 }
