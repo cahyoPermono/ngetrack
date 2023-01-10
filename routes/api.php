@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\NewTrade;
+use App\Http\Controllers\TroubleshootController;
 use App\Http\Controllers\VehicleTrackingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,8 +27,8 @@ Route::get('daily', [VehicleTrackingController::class, 'daily'])->name('tracking
 Route::get('weekly', [VehicleTrackingController::class, 'weekly'])->name('trackings.weekly');
 Route::get('monthly', [VehicleTrackingController::class, 'monthly'])->name('trackings.monthly');
 Route::get('yearly', [VehicleTrackingController::class, 'yearly'])->name('trackings.yearly');
+Route::get('troubleshoots', [TroubleshootController::class, 'list'])->name('troubleshoots.list');
+Route::post('troubleshoots', [TroubleshootController::class, 'storeDevice'])->name('troubleshoot');
 
-Route::get('test', function(){
-    event(new NewTrade('test bro'));
-    return "halo";
-});
+
+
