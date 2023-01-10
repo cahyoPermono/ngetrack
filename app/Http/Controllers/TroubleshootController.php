@@ -25,11 +25,15 @@ class TroubleshootController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function list()
+    {
+        return Troubleshoot::simplePaginate(15);
+    }
+
     public function create()
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      *
