@@ -1,0 +1,135 @@
+[
+    {
+        "id": "9ce44d411d3c2099",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "66bd1517c97bc76d",
+        "type": "tcp in",
+        "z": "9ce44d411d3c2099",
+        "name": "",
+        "server": "server",
+        "host": "",
+        "port": "3133",
+        "datamode": "stream",
+        "datatype": "utf8",
+        "newline": "",
+        "topic": "",
+        "trim": false,
+        "base64": false,
+        "tls": "",
+        "x": 180,
+        "y": 120,
+        "wires": [
+            [
+                "6d1854228fbb2acb"
+            ]
+        ]
+    },
+    {
+        "id": "49dbabe23a7d59de",
+        "type": "debug",
+        "z": "9ce44d411d3c2099",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "6d1854228fbb2acb",
+        "type": "function",
+        "z": "9ce44d411d3c2099",
+        "name": "API Transformer",
+        "func": "var strPayload = msg.payload;\nvar arrPayload = strPayload.split(',');\nmsg.payload = {\n    imei: arrPayload[1],\n    lat: arrPayload[4],\n    long: arrPayload[5]\n};\n\nif(arrPayload[3] === '1'){\n    return [null , msg];\n} else {\n    return [msg, null ];\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 120,
+        "wires": [
+            [
+                "0d04466204ebf110",
+                "1404b2b66bc41ed9"
+            ]
+        ]
+    },
+    {
+        "id": "0d04466204ebf110",
+        "type": "http request",
+        "z": "9ce44d411d3c2099",
+        "name": "Device Trackings API",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://tracking.globalorbitek.co.id/api/trackings",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 640,
+        "y": 120,
+        "wires": [
+            [
+                "49dbabe23a7d59de"
+            ]
+        ]
+    },
+    {
+        "id": "1404b2b66bc41ed9",
+        "type": "http request",
+        "z": "9ce44d411d3c2099",
+        "name": "Troubleshoot API",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://tracking.globalorbitek.co.id/api/troubleshoots",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 630,
+        "y": 180,
+        "wires": [
+            [
+                "b4cacafe1b4367bd"
+            ]
+        ]
+    },
+    {
+        "id": "b4cacafe1b4367bd",
+        "type": "debug",
+        "z": "9ce44d411d3c2099",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 180,
+        "wires": []
+    }
+]
