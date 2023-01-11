@@ -23,7 +23,7 @@ class VehicleTrackingController extends Controller
      */
     public function index()
     {
-        return VehicleTracking::with('vehicleRoute.vehicle')->simplePaginate(15);
+        return VehicleTracking::with('vehicleRoute.vehicle')->latest()->simplePaginate(15);
     }
 
     public function daily()
