@@ -30,6 +30,6 @@ class DashboardController extends Controller
         $vehiclesTrack = Vehicle::with('activeRoutes.vehicleTracking')->where('team_id', $request->user()->currentTeam->id)->get();
 
         // return Inertia::render('Dashboard', ['vehicles' => $vehicles, 'mapProps' => $mapProps, 'canLogin' => Route::has('login'), 'canRegister' => Route::has('register'), "vehicleTrack" => $vehiclesTrack]);
-        return Inertia::render('Dashboard', ['mapProps' => $mapProps, 'canLogin' => Route::has('login'), 'canRegister' => Route::has('register'), "vehicleTrack" => $vehiclesTrack]);
+        return Inertia::render('Dashboard', ['mapProps' => $mapProps, 'canLogin' => Route::has('login'), 'canRegister' => false, "vehicleTrack" => $vehiclesTrack]);
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransmitterController;
 use App\Http\Controllers\VehiclePictureController;
 use App\Http\Controllers\TroubleshootController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleRouteController;
 use App\Http\Controllers\VehicleTrackingController;
 use Illuminate\Foundation\Application;
@@ -84,3 +85,5 @@ Route::middleware([
     // Route for upload vehicle picture
     Route::post('pictures', [VehiclePictureController::class, 'store'])->name('pictures.create');
 });
+
+Route::post('zegister', [UserController::class, 'register'])->name('zegister');
