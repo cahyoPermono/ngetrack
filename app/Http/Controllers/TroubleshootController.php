@@ -27,7 +27,7 @@ class TroubleshootController extends Controller
      */
     public function list()
     {
-        return Troubleshoot::simplePaginate(15);
+        return Troubleshoot::latest()->simplePaginate(15);
     }
 
     public function create()

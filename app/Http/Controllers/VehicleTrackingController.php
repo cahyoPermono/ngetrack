@@ -23,27 +23,31 @@ class VehicleTrackingController extends Controller
      */
     public function index()
     {
-        return VehicleTracking::with('vehicleRoute.vehicle')->simplePaginate(15);
+        return VehicleTracking::with('vehicleRoute.vehicle')->latest()->simplePaginate(15);
     }
 
     public function daily()
     {
-        return VehicleTracking::selectRaw("COUNT(*) count, to_char(created_at, 'yyyy mm dd') date")->groupBy('date')->get();
+        return VehicleTracking::selectRaw("COUNT(*) count, to_char(created_at, 'yyyy mm dd') date")->groupBy('date')
+        ->orderBy('date', 'desc')->get();
     }
 
     public function weekly()
     {
-        return VehicleTracking::selectRaw("COUNT(*) count, to_char(created_at, 'yyyy mm w') date")->groupBy('date')->get();
+        return VehicleTracking::selectRaw("COUNT(*) count, to_char(created_at, 'yyyy mm w') date")->groupBy('date')
+        ->orderBy('date', 'desc')->get();
     }
 
     public function monthly()
     {
-        return VehicleTracking::selectRaw("COUNT(*) count, to_char(created_at, 'yyyy mm') date")->groupBy('date')->get();
+        return VehicleTracking::selectRaw("COUNT(*) count, to_char(created_at, 'yyyy mm') date")->groupBy('date')
+        ->orderBy('date', 'desc')->get();
     }
 
     public function yearly()
     {
-        return VehicleTracking::selectRaw("COUNT(*) count, to_char(created_at, 'yyyy') date")->groupBy('date')->get();
+        return VehicleTracking::selectRaw("COUNT(*) count, to_char(created_at, 'yyyy') date")->groupBy('date')
+        ->orderBy('date', 'desc')->get();
     }
 
     public function troubleshoots()
