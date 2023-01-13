@@ -111,6 +111,17 @@ class VehicleRouteController extends Controller
         //
     }
 
+    public function finish(Request $request, VehicleRoute $vehicleRoute)
+    {
+        if ($request->has('id')) {
+            $route = VehicleRoute::find($request->input('id'));
+
+            $route->status = 'off';
+
+            $route->save();
+        }
+    }
+
     /**
      * Update the specified resource in storage.
      *

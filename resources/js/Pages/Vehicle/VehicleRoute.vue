@@ -343,6 +343,13 @@ function update(data) {
     reset();
     closeModal();
 }
+function endRoute(data) {
+    if (!confirm("Are you sure want to remove?")) return;
+    data._method = "PUT";
+    Inertia.post("/finish/" + data.id, data);
+    reset();
+    closeModal();
+}
 function deleteRow(data) {
     if (!confirm("Are you sure want to remove?")) return;
     data._method = "DELETE";

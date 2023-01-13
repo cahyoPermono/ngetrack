@@ -70,6 +70,7 @@ Route::middleware([
     //Routing Vehicle Routes
     Route::get('routes', [VehicleRouteController::class, 'index'])->name('routes');
     Route::post('routes', [VehicleRouteController::class, 'store'])->name('routes.create');
+    Route::put('finish/{route}', [VehicleRouteController::class, 'finish'])->name('routes.finish');
     Route::put('routes/{route}', [VehicleRouteController::class, 'update'])->name('routes.update');
     Route::delete('routes/{route}', [VehicleRouteController::class, 'destroy'])->name('routes.destroy');
 
