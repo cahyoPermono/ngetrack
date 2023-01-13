@@ -334,10 +334,6 @@ const adminRegister = () => {
                                             Profile
                                         </DropdownLink>
 
-                                        <DropdownLink :href="route('register')">
-                                            Register
-                                        </DropdownLink>
-
                                         <form
                                             v-if="isAdmin"
                                             method="POST"
