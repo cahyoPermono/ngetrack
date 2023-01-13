@@ -40,7 +40,7 @@
                         </thead>
                         <tbody>
                             <tr v-for="row in data" :key="row.id">
-                                <td class="border px-4 py-2">
+                                <td class="border px-4 py-2 break-all">
                                     {{ row.reg_no }}
                                 </td>
                                 <td class="border px-4 py-2">
@@ -51,7 +51,7 @@
                                 <td class="border px-4 py-2">
                                     {{ row.driver }}
                                 </td>
-                                <td class="border px-4 py-2">
+                                <td class="border px-4 py-2 break-all">
                                     {{ row.transmitter.imei_number }}
                                 </td>
                                 <td class="border px-4 py-2">
