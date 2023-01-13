@@ -349,6 +349,7 @@ function show(data) {
 }
 function update(data) {
     data._method = "PUT";
+    delete data.vehicle_pictures;
     Inertia.post("/vehicles/" + data.id, data);
     reset();
     closeModal();
