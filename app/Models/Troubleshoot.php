@@ -12,8 +12,5 @@ class Troubleshoot extends Model
     //membuat variable
     protected $fillable = ['source','imei','team_id','description'];
 
-    public function getCreatedAtAttribute($date)
-    {
-    return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('yyyy mm dd');
-    }
+    
 }
