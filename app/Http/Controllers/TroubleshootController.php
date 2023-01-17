@@ -27,7 +27,7 @@ class TroubleshootController extends Controller
      */
     public function list()
     {
-        return Troubleshoot::latest()->simplePaginate(15);
+        return Troubleshoot::selectaw("source, imei, description, created_at, to_char(created_at, 'yyyy-mm-dd HH24:MI:SS') data")->latest()->simplePaginate(15);
     }
 
     public function create()
