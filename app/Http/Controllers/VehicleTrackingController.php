@@ -80,7 +80,7 @@ class VehicleTrackingController extends Controller
             $route = VehicleRoute::where('transmitter_id', $transmitter->id)->where('status', 'on')->first();
 
             if ($route) {
-                $requestData = $request->only('long', 'lat');
+                $requestData = $request->only('long', 'lat', 'speed', 'heading');
                 $requestData['vehicle_route_id'] = $route->id;
 
                 $vt = VehicleTracking::create($requestData);
@@ -166,7 +166,7 @@ class VehicleTrackingController extends Controller
             "Expires"             => "0"
         );
 
-        $columns = array('Vehicle', 'Source', 'Destination', 'Longitude', 'Latitude', 'Date');
+        $columns = array('Vehicle', 'Source', 'Destination', 'Longitude', 'Latitude', 'Date', 'Speed', 'Heading');
 
         $callback = function () use ($tracks, $columns) {
             $file = fopen('php://output', 'w');
@@ -179,8 +179,10 @@ class VehicleTrackingController extends Controller
                 $row['Longitude']  = $track->long;
                 $row['Latitude']  = $track->lat;
                 $row['Date']  = $track->created_at;
+                $row['Speed']  = $track->speed;
+                $row['Heading']  = $track->heading;
 
-                fputcsv($file, array($row['Vehicle'], $row['Source'], $row['Destination'], $row['Longitude'], $row['Latitude'], $row['Date']));
+                fputcsv($file, array($row['Vehicle'], $row['Source'], $row['Destination'], $row['Longitude'], $row['Latitude'], $row['Date'], $row['Speed'], $row['Heading']));
             }
 
             fclose($file);

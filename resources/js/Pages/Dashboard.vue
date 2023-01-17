@@ -25,6 +25,7 @@ defineProps({
 
 function AddTrackingToMap(vehicle) {
     // remove all layer
+    console.log(vehicle);
     removeAllLayer();
 
     if (!vehicle.active_routes) {
@@ -79,7 +80,10 @@ function AddTrackingToMap(vehicle) {
         const currentLatlong = leaflet.latLng(currentLat, currentLong);
         const currentMarking = leaflet
             .marker(currentLatlong, { icon: truckIcon })
-            .bindPopup(`${vehicle.name}`);
+            .bindPopup(`Nama Kendaraan: ${vehicle.name} <br />
+                        Plat Nomor: ${vehicle.plate} <br />
+                        Date and Time: ${vehicle.active_routes.vehicle_tracking[0].created_at} <br />
+                        Speed: ${vehicle.active_routes.vehicle_tracking[0].speed || '0'}`);
         trackingLayerGroup.value.addLayer(currentMarking);
 
         const polyline = L.polyline(latlngs, { color: "red" });
@@ -87,7 +91,10 @@ function AddTrackingToMap(vehicle) {
     } else {
         const currentMarking = leaflet
             .marker(fromLatlong, { icon: truckIcon })
-            .bindPopup(`${vehicle.name}`);
+            .bindPopup(`Nama Kendaraan: ${vehicle.name} <br />
+                        Plat Nomor: ${vehicle.plate} <br />
+                        Date and Time: ${vehicle.active_routes.vehicle_tracking[0].created_at} <br />
+                        Speed: ${vehicle.active_routes.vehicle_tracking[0].speed || '0'}`);
         trackingLayerGroup.value.addLayer(currentMarking);
     }
 
@@ -109,7 +116,10 @@ function AddVehicleToMap() {
             const latlong = leaflet.latLng(lat, long);
             const mark = leaflet
                 .marker(latlong, { icon: truckIcon })
-                .bindPopup(`${vehicle.name}`);
+                .bindPopup(`Nama Kendaraan: ${vehicle.name} <br />
+                        Plat Nomor: ${vehicle.plate} <br />
+                        Date and Time: ${vehicle.active_routes.vehicle_tracking[0].created_at} <br />
+                        Speed: ${vehicle.active_routes.vehicle_tracking[0].speed || '0'}`);
             vehiclesLayerGroup.value.addLayer(mark);
         }
     }
