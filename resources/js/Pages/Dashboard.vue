@@ -1,6 +1,6 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import { onMounted, ref, watch } from "vue";
+import { onMounted, ref, computed } from "vue";
 import leaflet from "leaflet";
 import { usePage } from "@inertiajs/inertia-vue3";
 import { Inertia } from "@inertiajs/inertia";
@@ -15,6 +15,14 @@ let truckIcon = L.icon({
     iconUrl: "/images/box-truck.png",
     iconSize: [30, 30],
 });
+
+const formatDate = (str) => {
+    const oldDate = new Date(str);
+
+    return oldDate.toString();
+};
+
+// console.log(formatDate('2022-12-29T10:03:50.000000Z'));
 
 defineProps({
     // vehicles: Array,
@@ -65,7 +73,16 @@ function AddTrackingToMap(vehicle) {
             const currentLong = Number(
                 vehicle.active_routes.vehicle_tracking[index].long
             );
+
             const currentLatlong = leaflet.latLng(currentLat, currentLong);
+
+            console.log('kepanggil');
+            // add dot marker
+            const dotMarking = leaflet.circleMarker(currentLatlong, {
+                radius: 3, color: 'red',
+            });
+
+            trackingLayerGroup.value.addLayer(dotMarking);
 
             latlngs.push(currentLatlong);
         }
@@ -78,23 +95,32 @@ function AddTrackingToMap(vehicle) {
             vehicle.active_routes.vehicle_tracking[0].long
         );
         const currentLatlong = leaflet.latLng(currentLat, currentLong);
-        const currentMarking = leaflet
-            .marker(currentLatlong, { icon: truckIcon })
-            .bindPopup(`Nama Kendaraan: ${vehicle.name} <br />
+        const currentMarking = leaflet.marker(currentLatlong, {
+            icon: truckIcon,
+        }).bindPopup(`Nama Kendaraan: ${vehicle.name} <br />
                         Plat Nomor: ${vehicle.plate} <br />
-                        Date and Time: ${vehicle.active_routes.vehicle_tracking[0].created_at} <br />
-                        Speed: ${vehicle.active_routes.vehicle_tracking[0].speed || '0'}`);
+                        Date and Time: ${formatDate(
+                            vehicle.active_routes.vehicle_tracking[0].created_at
+                        )} <br />
+                        Speed: ${
+                            vehicle.active_routes.vehicle_tracking[0].speed ||
+                            "0"
+                        } km/h`);
         trackingLayerGroup.value.addLayer(currentMarking);
 
         const polyline = L.polyline(latlngs, { color: "red" });
         trackingLayerGroup.value.addLayer(polyline);
     } else {
-        const currentMarking = leaflet
-            .marker(fromLatlong, { icon: truckIcon })
+        const currentMarking = leaflet.marker(fromLatlong, { icon: truckIcon })
             .bindPopup(`Nama Kendaraan: ${vehicle.name} <br />
                         Plat Nomor: ${vehicle.plate} <br />
-                        Date and Time: ${vehicle.active_routes.vehicle_tracking[0].created_at} <br />
-                        Speed: ${vehicle.active_routes.vehicle_tracking[0].speed || '0'}`);
+                        Date and Time: ${formatDate(
+                            vehicle.active_routes.vehicle_tracking[0].created_at
+                        )} <br />
+                        Speed: ${
+                            vehicle.active_routes.vehicle_tracking[0].speed ||
+                            "0"
+                        } km/h`);
         trackingLayerGroup.value.addLayer(currentMarking);
     }
 
@@ -114,12 +140,16 @@ function AddVehicleToMap() {
             const long = Number(tracking.vehicle_tracking[0].long);
 
             const latlong = leaflet.latLng(lat, long);
-            const mark = leaflet
-                .marker(latlong, { icon: truckIcon })
+            const mark = leaflet.marker(latlong, { icon: truckIcon })
                 .bindPopup(`Nama Kendaraan: ${vehicle.name} <br />
                         Plat Nomor: ${vehicle.plate} <br />
-                        Date and Time: ${vehicle.active_routes.vehicle_tracking[0].created_at} <br />
-                        Speed: ${vehicle.active_routes.vehicle_tracking[0].speed || '0'}`);
+                        Date and Time: ${formatDate(
+                            vehicle.active_routes.vehicle_tracking[0].created_at
+                        )} <br />
+                        Speed: ${
+                            vehicle.active_routes.vehicle_tracking[0].speed ||
+                            "0"
+                        } km/h`);
             vehiclesLayerGroup.value.addLayer(mark);
         }
     }
@@ -242,3 +272,12 @@ onMounted(() => {
         </div>
     </AppLayout>
 </template>
+<style>
+.doticon {
+    height: 25px;
+    width: 25px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+}
+</style>
