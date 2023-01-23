@@ -6,6 +6,7 @@ use App\Events\NewTrade;
 use App\Events\VehicleTracking as EventsVehicleTracking;
 use App\Events\VehicleTrackingEvent;
 use App\Http\Requests\TrackingRequest;
+use App\Models\NonRouteTracking;
 use App\Models\Transmitter;
 use App\Models\VehicleRoute;
 use App\Models\VehicleTracking;
@@ -88,9 +89,10 @@ class VehicleTrackingController extends Controller
                 event(new VehicleTrackingEvent('incoming-data'));
                 return $vt;
             } else {
-                return response()->json([
-                    'message' => 'Active Route Not Found'
-                ], 404);
+                $requestData = $request->only('long', 'lat', 'speed', 'heading', 'imei');
+                $vt = NonRouteTracking::create($requestData);
+
+                return $vt;
             }
         } else {
             return response()->json([
