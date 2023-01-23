@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('non_route_trackings', function (Blueprint $table) {
             $table->id();
             $table->string('imei');
-            $table->string('team_id');
+            $table->string('team_id')->nullable();
             $table->string('long');
             $table->string('lat');
-            $table->string('speed');
-            $table->string('heading');
+            $table->string('speed')->nullable();
+            $table->string('heading')->nullable();
             $table->timestamps();
         });
     }
