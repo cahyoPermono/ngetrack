@@ -210,7 +210,7 @@ onMounted(() => {
                 usePage().props.value.mapProps.token
             }`,
             {
-                maxZoom: 15,
+                maxZoom: 22,
                 attribution:
                     '&copy; <a href="http://www.openstreetmap.org/copyright">MapBox</a> <a href="https://www.flaticon.com/free-icons/truck" title="truck icons">Truck icons created by Freepik - Flaticon</a>',
             }
