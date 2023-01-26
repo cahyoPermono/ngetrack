@@ -182,11 +182,21 @@
     };
   }
   function save(data) {
-  
-    Inertia.post("/transmitters", data);
-    reset();
-    closeModal();
-    editMode.value = false;
+    Inertia.post("/transmitters", data, {
+      onError: (errors) => {
+            if (errors.message) {
+                alert.value = {
+                    type: "error",
+                    message: errors.message,
+                };
+            }
+        },
+        onSuccess: (item) => {
+            reset();
+            closeModal();
+            editMode.value = false;
+        },
+    });
   }
   function edit(data) {
     form.value = Object.assign({}, data);

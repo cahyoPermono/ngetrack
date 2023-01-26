@@ -44,6 +44,14 @@ class TransmitterController extends Controller
             
         ])->validate();
 
+        $transmitter = Transmitter::where('imei_number', $request->imei_number)->first();
+
+        if($transmitter){
+            return redirect()->back()->withErrors([
+                'message' => 'Cannot create a new Transmitter because Transmitter is already Registered'
+            ]);
+        }
+
         $requestData = $request->all();
         $requestData['team_id'] = $request->user()->currentTeam->id;
   
