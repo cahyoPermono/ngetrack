@@ -44,7 +44,7 @@
                                     {{ row.reg_no }}
                                 </td>
                                 <td class="border px-4 py-2">
-                                    {{ row.vehicle.name }}
+                                    {{ row.vehicle?.name }}
                                 </td>
                                 <td class="border px-4 py-2">{{ row.from }}</td>
                                 <td class="border px-4 py-2">{{ row.to }}</td>
@@ -52,7 +52,7 @@
                                     {{ row.driver }}
                                 </td>
                                 <td class="border px-4 py-2 break-all">
-                                    {{ row.transmitter.imei_number }}
+                                    {{ row.transmitter?.imei_number }}
                                 </td>
                                 <td class="border px-4 py-2">
                                     {{ row.status }}
