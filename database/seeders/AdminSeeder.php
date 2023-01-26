@@ -29,7 +29,7 @@ class AdminSeeder extends Seeder
         $team = Team::forceCreate([
             'user_id' => $user->id,
             'name' => 'global',
-            'personal_team' => false,
+            'personal_team' => true,
         ]);
 
         $user->current_team_id = $team->id;
