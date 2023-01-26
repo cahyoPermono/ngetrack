@@ -29,7 +29,7 @@ class VehicleTrackingController extends Controller
             $track->date = $track->created_at->format('Y-m-d H:i:s');
         }
 
-        return $track;
+        return $tracks;
     }
 
     public function daily()
