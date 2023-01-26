@@ -24,7 +24,12 @@ class VehicleTrackingController extends Controller
      */
     public function index()
     {
-        return VehicleTracking::with('vehicleRoute.vehicle')->latest()->simplePaginate(15);
+        $tracks = VehicleTracking::with('vehicleRoute.vehicle')->latest()->simplePaginate(15);
+        foreach($tracks as $track) {
+            $track->date = $track->created_at->format('Y-m-d H:i:s');
+        }
+
+        return $track;
     }
 
     public function daily()
